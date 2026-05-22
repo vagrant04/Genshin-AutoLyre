@@ -14,3 +14,7 @@ yt-dlp==2024.10.22
 basic-pitch[onnx]>=0.3.0,<0.5
 ffmpeg-python==0.2.0
 qqmusic-api-python>=0.3.6,<0.4
+# resampy (transitive via basic-pitch) imports pkg_resources, which
+# was removed in setuptools 72. Pin until basic-pitch upstream
+# switches to importlib.metadata.
+setuptools<72
