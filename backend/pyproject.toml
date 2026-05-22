@@ -2,3 +2,7 @@
 testpaths = ["tests"]
 pythonpath = ["."]
 asyncio_mode = "auto"
+markers = [
+    "slow: tests that take more than ~5 seconds (skipped by default; run with -m slow)",
+    "audio_live: integration tests that touch real audio platforms",
+]
