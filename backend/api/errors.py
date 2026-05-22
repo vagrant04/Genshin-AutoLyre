@@ -44,6 +44,12 @@ ERROR_CATALOG: dict[str, tuple[int, str]] = {
     "NO_MELODY_TRACK": (status.HTTP_400_BAD_REQUEST, "请至少指定一条主旋律轨道。"),
     "FILE_NOT_FOUND": (status.HTTP_404_NOT_FOUND, "文件已过期，请重新解析。"),
     "INVALID_TRACK_INDEX": (status.HTTP_400_BAD_REQUEST, "轨道索引无效。"),
+    "AUDIO_DOWNLOAD_FAILED": (status.HTTP_400_BAD_REQUEST, "音频下载失败。"),
+    "AUDIO_TOO_LARGE": (status.HTTP_400_BAD_REQUEST, "音频文件超过 50MB 限制。"),
+    "AUDIO_TOO_LONG": (status.HTTP_400_BAD_REQUEST, "音频时长超过 10 分钟限制。"),
+    "TRANSCRIPTION_FAILED": (status.HTTP_500_INTERNAL_SERVER_ERROR, "音频转 MIDI 失败。"),
+    "SOURCE_UNAVAILABLE": (status.HTTP_503_SERVICE_UNAVAILABLE, "该平台接口当前不可用或歌曲需要付费，请换个歌曲或平台重试。"),
+    "INVALID_AUDIO_URL": (status.HTTP_400_BAD_REQUEST, "无法识别的音频 URL。"),
 }
 
 
