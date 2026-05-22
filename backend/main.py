@@ -17,6 +17,7 @@ from fastapi.responses import JSONResponse
 from api.errors import ApiError, ApiErrorPayload
 from api.routes_generate import router as generate_router
 from api.routes_parse import get_store, router as parse_router
+from api.routes_preview import router as preview_router
 from api.routes_search import router as search_router
 from api.store import ParsedFileStore
 from utils.cache import DEFAULT_CACHE_DIR, ensure_cache_dir
@@ -74,3 +75,4 @@ async def unhandled_exception_handler(_: Request, exc: Exception) -> JSONRespons
 app.include_router(search_router)
 app.include_router(parse_router)
 app.include_router(generate_router)
+app.include_router(preview_router)

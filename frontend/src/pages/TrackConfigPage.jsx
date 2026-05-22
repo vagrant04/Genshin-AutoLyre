@@ -61,6 +61,7 @@ export default function TrackConfigPage() {
       <TrackPanel
         tracks={initial.tracks}
         roles={roles}
+        fileToken={initial.file_token}
         onChange={(idx, value) =>
           setRoles((prev) => ({ ...prev, [String(idx)]: value }))
         }

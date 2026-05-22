@@ -40,4 +40,11 @@ export async function generateScore({ file_token, title, track_roles }) {
   return resp.data;
 }
 
+export async function getPreviewTrack(fileToken, trackIndex, mapped) {
+  const resp = await client.get("/api/preview-track", {
+    params: { file_token: fileToken, track_index: trackIndex, mapped },
+  });
+  return resp.data;
+}
+
 export default client;
