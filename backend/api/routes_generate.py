@@ -103,14 +103,17 @@ async def generate(
         format_version_score(
             versions_dict[ScoreVersion.MELODY_ONLY],
             ticks_per_beat=record.parsed.ticks_per_beat,
+            time_signature=record.parsed.time_signature,
         ),
         format_version_score(
             versions_dict[ScoreVersion.SIMPLIFIED],
             ticks_per_beat=record.parsed.ticks_per_beat,
+            time_signature=record.parsed.time_signature,
         ),
         format_version_score(
             versions_dict[ScoreVersion.FULL],
             ticks_per_beat=record.parsed.ticks_per_beat,
+            time_signature=record.parsed.time_signature,
         ),
     ]
 

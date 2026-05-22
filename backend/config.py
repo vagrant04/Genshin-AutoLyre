@@ -101,8 +101,9 @@ class VersionStats(BaseModel):
 class VersionScore(BaseModel):
     version: ScoreVersion
     version_label: str
-    pc_score: str = ""        # populated by formatter (part 3)
-    mobile_score: str = ""    # populated by formatter (part 3)
+    pc_score: str = ""        # populated by formatter (single line)
+    mobile_score: str = ""    # populated by formatter (single line)
+    human_score: str = ""     # populated by formatter (one bar per line, with `|`)
     notes: list[MappedNote]
     statistics: VersionStats
 
@@ -127,3 +128,6 @@ class ParsedMidi(BaseModel):
     bpm: int
     ticks_per_beat: int
     tracks: list[ParsedTrack]
+    # (numerator, denominator) — defaults to 4/4 when the file has no
+    # time_signature meta event. Used by the formatter to place bar lines.
+    time_signature: tuple[int, int] = (4, 4)

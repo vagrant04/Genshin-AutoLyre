@@ -4,6 +4,7 @@ import VersionTabs from "../components/VersionTabs.jsx";
 import ScoreDisplay from "../components/ScoreDisplay.jsx";
 
 const MODES = [
+  { key: "human", label: "人类阅读谱" },
   { key: "pc", label: "PC 字母谱" },
   { key: "mobile", label: "手机数字谱" },
 ];
@@ -20,7 +21,7 @@ export default function ScorePage() {
   }, [score, navigate]);
 
   const [activeVersion, setActiveVersion] = useState("simplified");
-  const [activeMode, setActiveMode] = useState("pc");
+  const [activeMode, setActiveMode] = useState("human");
   const [statsOpen, setStatsOpen] = useState(false);
 
   const current = useMemo(
@@ -30,7 +31,12 @@ export default function ScorePage() {
 
   if (!score || !current) return null;
 
-  const text = activeMode === "pc" ? current.pc_score : current.mobile_score;
+  const text =
+    activeMode === "pc"
+      ? current.pc_score
+      : activeMode === "mobile"
+        ? current.mobile_score
+        : current.human_score;
 
   function handleCopy() {
     navigator.clipboard.writeText(text || "");
@@ -78,7 +84,7 @@ export default function ScorePage() {
       </div>
 
       <section className="rounded-xl border border-slate-200 bg-white p-5">
-        <ScoreDisplay text={text} />
+        <ScoreDisplay text={text} mode={activeMode} />
       </section>
 
       <details

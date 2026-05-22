@@ -22,13 +22,23 @@ function highlightOutOfRange(line) {
   return parts;
 }
 
-export default function ScoreDisplay({ text }) {
+export default function ScoreDisplay({ text, mode }) {
   if (!text) {
     return <p className="text-slate-500">本版本暂无音符。</p>;
   }
   const lines = text.split("\n");
+  // PC and mobile are single-line; let them scroll horizontally so the
+  // rhythm-encoding spaces don't get word-wrapped. Human view is already
+  // bar-per-line and benefits from natural wrapping.
+  const isSingleLine = mode === "pc" || mode === "mobile";
   return (
-    <pre className="score-mono whitespace-pre-wrap text-base leading-relaxed">
+    <pre
+      className={
+        isSingleLine
+          ? "score-mono overflow-x-auto whitespace-pre text-base leading-relaxed"
+          : "score-mono whitespace-pre-wrap text-base leading-relaxed"
+      }
+    >
       {lines.map((line, i) => (
         <div key={i}>{highlightOutOfRange(line)}</div>
       ))}

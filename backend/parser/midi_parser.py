@@ -31,6 +31,7 @@ def parse_midi_file(path: Path) -> ParsedMidi:
         raise ParseError(f"Failed to parse MIDI: {exc}") from exc
 
     bpm = _extract_bpm(midi)
+    time_signature = _extract_time_signature(midi)
     tracks: list[ParsedTrack] = []
     for index, track in enumerate(midi.tracks):
         name = _extract_track_name(track) or f"轨道 {index}"
@@ -41,6 +42,7 @@ def parse_midi_file(path: Path) -> ParsedMidi:
         bpm=bpm,
         ticks_per_beat=midi.ticks_per_beat,
         tracks=tracks,
+        time_signature=time_signature,
     )
 
 
@@ -50,6 +52,15 @@ def _extract_bpm(midi: mido.MidiFile) -> int:
             if msg.type == "set_tempo":
                 return int(round(mido.tempo2bpm(msg.tempo)))
     return 120  # spec default
+
+
+def _extract_time_signature(midi: mido.MidiFile) -> tuple[int, int]:
+    """Return the first time_signature meta event as (num, den), or (4, 4)."""
+    for track in midi.tracks:
+        for msg in track:
+            if msg.type == "time_signature":
+                return (int(msg.numerator), int(msg.denominator))
+    return (4, 4)
 
 
 def _extract_track_name(track: mido.MidiTrack) -> str | None:
