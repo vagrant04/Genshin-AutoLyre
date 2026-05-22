@@ -21,8 +21,8 @@ export async function searchMusic(query, limit = 5) {
   return resp.data;
 }
 
-export async function parseResource({ result_id, download_url, title }) {
-  const resp = await client.post("/api/parse", { result_id, download_url, title });
+export async function parseResource({ result_id, download_url, title, source }) {
+  const resp = await client.post("/api/parse", { result_id, download_url, title, source });
   return resp.data;
 }
 

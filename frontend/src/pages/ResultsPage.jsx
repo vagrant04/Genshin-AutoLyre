@@ -37,6 +37,7 @@ export default function ResultsPage() {
         result_id: result.id,
         download_url: result.download_url,
         title: result.title,
+        source: result.source,
       });
       navigate("/tracks", { state: data });
     } catch (err) {
