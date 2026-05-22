@@ -2,11 +2,18 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Build the standalone backend audio package — dependency installation, `AbstractAudioSource` interface, four concrete source adapters (YouTube, Bilibili, NetEase, QQ), the Basic Pitch transcriber wrapper, and an `AudioFileStore` for tracking transcription jobs. No FastAPI routes yet; this plan produces working, unit-tested Python modules that the next plan wires into HTTP routes.
+> **DEVIATION (2026-05-23): NetEase dropped.** The original plan listed four platforms (YouTube, Bilibili, NetEase, QQ Music). `pyncm` is no longer published on PyPI, and the alternatives are too thin to wrap reliably. We ship three platforms only: **YouTube + Bilibili + QQ Music**. Concretely:
+> - **Skip Task 11 entirely** (NetEaseSource).
+> - The `AudioSourceKey` enum has THREE values: `YOUTUBE`, `BILIBILI`, `QQMUSIC`. Do NOT add `NETEASE`.
+> - `requirements.txt` already has the working pins committed: `yt-dlp==2024.10.22`, `basic-pitch[onnx]>=0.3.0,<0.5`, `ffmpeg-python==0.2.0`, `qqmusic-api-python>=0.3.6,<0.4`. Do NOT add `pyncm`.
+> - In Plan 2's route Literals and `_SOURCE_BY_PLATFORM` map, drop the `"netease"` entry.
+> - In Plan 3's frontend platform radio, drop the "网易云" option.
 
-**Architecture:** Each source is a thin adapter behind a single abstract base class — `search()` returns `AudioCandidate` lists, `fetch_to_path()` downloads to local disk. yt-dlp covers YouTube + Bilibili; pyncm + qqmusic-api-python cover the Chinese platforms. The transcriber lazy-loads the Basic Pitch TF-Lite model on first call and runs in a thread (sync API). All network failures bubble up as `SourceUnavailable`.
+**Goal:** Build the standalone backend audio package — dependency installation, `AbstractAudioSource` interface, three concrete source adapters (YouTube, Bilibili, QQ Music), the Basic Pitch transcriber wrapper, and an `AudioFileStore` for tracking transcription jobs. No FastAPI routes yet; this plan produces working, unit-tested Python modules that the next plan wires into HTTP routes.
 
-**Tech Stack:** Python 3.12, Pydantic v2 (already installed), yt-dlp, basic-pitch, ffmpeg-python, pyncm, qqmusic-api-python, pytest, pytest-asyncio. Builds on the existing `backend/` skeleton, `config.py` models, and the `BaseMusicSearcher` exception-swallowing pattern.
+**Architecture:** Each source is a thin adapter behind a single abstract base class — `search()` returns `AudioCandidate` lists, `fetch_to_path()` downloads to local disk. yt-dlp covers YouTube + Bilibili; qqmusic-api-python covers QQ Music. The transcriber lazy-loads the Basic Pitch TF-Lite model on first call and runs in a thread (sync API). All network failures bubble up as `SourceUnavailable`.
+
+**Tech Stack:** Python 3.12, Pydantic v2 (already installed), yt-dlp, basic-pitch (with onnx extras), ffmpeg-python, qqmusic-api-python, pytest, pytest-asyncio. Builds on the existing `backend/` skeleton, `config.py` models, and the `BaseMusicSearcher` exception-swallowing pattern.
 
 ---
 

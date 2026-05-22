@@ -2,6 +2,11 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
+> **DEVIATION (2026-05-23): NetEase dropped.** See Plan 1's deviation header. In this plan, when building `AudioSearchCard.jsx`:
+> - The `PLATFORMS` array should have THREE entries: YouTube, Bilibili, QQ 音乐. Drop the 网易云 entry.
+> - In `AudioCandidateCard.jsx`'s `SOURCE_LABELS` map, drop the `netease` key.
+> - URL-paste hint copy: "支持 YouTube、Bilibili、QQ 音乐链接" (drop "网易云音乐").
+
 **Goal:** Build the frontend audio mode that lives alongside the existing MIDI search. Users toggle to **音频搜索 / 上传** mode, drop a file or paste a URL or run a platform search, watch a polling progress UI as the backend transcribes, and land on the existing TrackConfig page once done. Plus README updates documenting the new system dependency (ffmpeg), install size, and personal-use scope.
 
 **Architecture:** A new `<AudioModeToggle>` controls which body the existing `SearchPage.jsx` renders — current MIDI body or new `<AudioSearchSection>`. AudioSearchSection has three input cards (upload / URL / search) and a collapsible advanced-settings panel. Submitting any one calls `/api/audio/transcribe`, gets back a `job_token`, and renders `<TranscribeProgress>` which polls `/api/audio/jobs/{token}` every 700 ms. On `done`, it navigates to TrackConfig with the same router state shape the existing parse path produces.

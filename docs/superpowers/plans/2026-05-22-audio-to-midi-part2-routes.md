@@ -2,9 +2,15 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
+> **DEVIATION (2026-05-23): NetEase dropped.** See Plan 1's deviation header. In this plan, when implementing `routes_audio.py`:
+> - The `PlatformParam = Literal[...]` should list THREE values: `"youtube"`, `"bilibili"`, `"qqmusic"`.
+> - `_SOURCE_BY_PLATFORM` should map THREE keys, no `"netease"`.
+> - `_platform_from_url()` should drop the `music.163.com` branch.
+> - Skip the `from audio.sources.netease import NetEaseSource` import.
+
 **Goal:** Wire the audio package (built in plan 1) into HTTP routes — `/api/audio/search`, `/api/audio/transcribe`, and `/api/audio/jobs/{token}` — registered alongside the existing `/api/search`, `/api/parse`, etc. The transcribe pipeline reuses the existing `_parse_and_save()` helper so the response shape is identical to `/api/parse`, and the frontend's downstream flow (TrackConfig → Score) requires no changes.
 
-**Architecture:** A single `routes_audio.py` exposes three endpoints. Search dispatches to one of the four `AudioSource` subclasses by `platform` query param. Transcribe runs synchronously in a background task seeded by an `AudioFileStore` job token — the route returns the job token immediately, the job runs (download → cache check → transcribe → cache check → parse → store update), and the frontend polls `/api/audio/jobs/{token}` for stage progress. New error codes plumb in via the existing `errors.py` catalog.
+**Architecture:** A single `routes_audio.py` exposes three endpoints. Search dispatches to one of the three `AudioSource` subclasses by `platform` query param. Transcribe runs synchronously in a background task seeded by an `AudioFileStore` job token — the route returns the job token immediately, the job runs (download → cache check → transcribe → cache check → parse → store update), and the frontend polls `/api/audio/jobs/{token}` for stage progress. New error codes plumb in via the existing `errors.py` catalog.
 
 **Tech Stack:** FastAPI (already installed), the audio package from plan 1, the existing `_parse_and_save()` helper, `BackgroundTasks` from Starlette.
 
