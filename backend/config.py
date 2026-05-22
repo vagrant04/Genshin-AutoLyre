@@ -131,3 +131,30 @@ class ParsedMidi(BaseModel):
     # (numerator, denominator) — defaults to 4/4 when the file has no
     # time_signature meta event. Used by the formatter to place bar lines.
     time_signature: tuple[int, int] = (4, 4)
+
+
+class AudioSourceKey(str, Enum):
+    YOUTUBE = "youtube"
+    BILIBILI = "bilibili"
+    QQMUSIC = "qqmusic"
+
+
+class AudioCandidate(BaseModel):
+    """One search result from any audio platform."""
+    source: AudioSourceKey
+    candidate_id: str          # platform-specific id
+    title: str
+    artist: Optional[str] = None
+    duration_seconds: Optional[int] = None
+    thumbnail_url: Optional[str] = None
+    canonical_url: str          # what fetch_to_path consumes
+
+
+class AudioMetadata(BaseModel):
+    """Returned by fetch_to_path after a successful download."""
+    source: AudioSourceKey
+    canonical_url: str
+    title: str
+    duration_seconds: Optional[int] = None
+    file_path: str
+    file_size_bytes: int
