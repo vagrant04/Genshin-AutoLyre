@@ -112,3 +112,18 @@ class LyreScore(BaseModel):
     bpm: int
     ticks_per_beat: int
     versions: list[VersionScore]
+
+
+class ParsedTrack(BaseModel):
+    """Raw parser output for one MIDI track. The classifier later reads
+    these and produces TrackInfo (with suggested_role + chord_type)."""
+    index: int
+    name: str
+    notes: list[ParsedNote]
+
+
+class ParsedMidi(BaseModel):
+    """Full result of parsing a local MIDI file."""
+    bpm: int
+    ticks_per_beat: int
+    tracks: list[ParsedTrack]
