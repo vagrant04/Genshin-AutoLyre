@@ -75,8 +75,10 @@ class BilibiliSource(AbstractAudioSource):
         try:
             info = await asyncio.to_thread(self._extract, params, url, True)
         except SourceUnavailable:
+            target.unlink(missing_ok=True)
             raise
         except Exception as exc:  # noqa: BLE001
+            target.unlink(missing_ok=True)
             raise SourceUnavailable(f"yt-dlp/bilibili failed: {exc}") from exc
         if not target.is_file():
             raise SourceUnavailable(

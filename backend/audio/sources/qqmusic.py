@@ -38,13 +38,17 @@ class _DefaultClient:
         return urls.get(song_mid) if isinstance(urls, dict) else None
 
     async def download(self, url: str, target: Path) -> None:
-        async with httpx.AsyncClient(timeout=60.0, follow_redirects=True) as c:
-            async with c.stream("GET", url) as r:
-                if r.status_code != 200:
-                    raise SourceUnavailable(f"qq HTTP {r.status_code}")
-                with target.open("wb") as fh:
-                    async for chunk in r.aiter_bytes():
-                        fh.write(chunk)
+        try:
+            async with httpx.AsyncClient(timeout=60.0, follow_redirects=True) as c:
+                async with c.stream("GET", url) as r:
+                    if r.status_code != 200:
+                        raise SourceUnavailable(f"qq HTTP {r.status_code}")
+                    with target.open("wb") as fh:
+                        async for chunk in r.aiter_bytes():
+                            fh.write(chunk)
+        except Exception:
+            target.unlink(missing_ok=True)
+            raise
 
 
 class QQMusicSource(AbstractAudioSource):
