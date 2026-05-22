@@ -21,7 +21,7 @@ _DOWNLOAD_RE = re.compile(
     r"|https?://[^\s,)]+?\.midi?\b",
     flags=re.IGNORECASE,
 )
-_TAG_RE = re.compile(r"</?em>", flags=re.IGNORECASE)
+_TAG_RE = re.compile(r"<[^>]+>")
 
 
 class BilibiliSearcher(BaseMusicSearcher):
@@ -36,8 +36,14 @@ class BilibiliSearcher(BaseMusicSearcher):
         url = "https://api.bilibili.com/x/web-interface/search/all/v2"
         params = {"keyword": keyword}
         headers = {
-            "Referer": "https://www.bilibili.com",
-            "User-Agent": "Mozilla/5.0",
+            "Referer": "https://www.bilibili.com/",
+            "User-Agent": (
+                "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+                "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
+            ),
+            "Accept": "application/json, text/plain, */*",
+            "Accept-Language": "en-US,en;q=0.9",
+            "Origin": "https://www.bilibili.com",
         }
         client = self._client or httpx.AsyncClient(timeout=10.0)
         try:
@@ -72,7 +78,10 @@ class BilibiliSearcher(BaseMusicSearcher):
     def _extract_video_section(payload: dict) -> list[dict]:
         result_list = (payload.get("data") or {}).get("result") or []
         for section in result_list:
-            if section.get("type") == "video":
+            # The API uses `result_type` in current responses; older
+            # `type` is kept as a fallback.
+            kind = section.get("result_type") or section.get("type")
+            if kind == "video":
                 return section.get("data") or []
         return []
 

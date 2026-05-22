@@ -1,5 +1,10 @@
 """Tests for individual platform searchers using httpx MockTransport.
-Spec §8.1.2 (freemidi), §8.1.3 (bitmidi), §8.1.4 (musescore), §8.1.5 (bilibili)."""
+
+Note: These mocks reflect the actual responses observed against the live
+sites in May 2026. The original spec descriptions of FreeMIDI/BitMIDI URL
+patterns turned out to be incorrect; the implementations here use the
+real working endpoints.
+"""
 from __future__ import annotations
 
 import httpx
@@ -14,13 +19,13 @@ from search.bilibili import BilibiliSearcher
 
 # ---------- FreeMIDI ----------
 
+# Real FreeMIDI search results contain anchors with /download3-{id}-{slug}.
 FREEMIDI_HTML = """
 <html><body>
-<div class="search-result">
-  <a href="/download-12345" class="search-result-anchor">Twinkle Twinkle Little Star</a>
-</div>
-<div class="search-result">
-  <a href="/download-67890" class="search-result-anchor">Another Tune</a>
+<div>
+  <a href="/download3-12345-twinkle-twinkle-little-star">Twinkle Twinkle Little Star</a>
+  <a href="/download3-67890-another-tune">Another Tune</a>
+  <a href="/help">Help</a>
 </div>
 </body></html>
 """
@@ -39,10 +44,11 @@ async def test_freemidi_parses_search_results():
     assert len(results) == 2
     assert results[0].source == MusicSource.FREEMIDI
     assert "Twinkle" in results[0].title
-    assert results[0].download_url == "https://freemidi.org/download2-12345"
+    # Download URL uses /getter-{id} pattern (the real download endpoint).
+    assert results[0].download_url == "https://freemidi.org/getter-12345"
 
 
-async def test_freemidi_query_with_spaces_uses_hyphens():
+async def test_freemidi_uses_query_param():
     captured: dict[str, str] = {}
 
     def handler(request: httpx.Request) -> httpx.Response:
@@ -52,7 +58,8 @@ async def test_freemidi_query_with_spaces_uses_hyphens():
     async with httpx.AsyncClient(transport=httpx.MockTransport(handler)) as client:
         searcher = FreeMidiSearcher(client=client)
         await searcher.search("twinkle little star", limit=5)
-    assert "twinkle-little-star" in captured["url"]
+    # Real site uses ?q=... param, not slug-in-path.
+    assert "q=twinkle" in captured["url"]
 
 
 async def test_freemidi_returns_empty_on_5xx():
@@ -70,36 +77,60 @@ async def test_freemidi_respects_limit():
     assert len(results) == 1
 
 
+async def test_freemidi_dedupes_repeat_links():
+    """Real freemidi pages render each result twice (the linked title + the
+    download button). Our parser must dedupe by ID."""
+    html = """<html><body>
+        <a href="/download3-12345-x">Title</a>
+        <a href="/download3-12345-x"><img src="dl.png"/></a>
+    </body></html>"""
+    async with _client_returning(html) as client:
+        searcher = FreeMidiSearcher(client=client)
+        results = await searcher.search("x", limit=5)
+    assert len(results) == 1
+
+
 # ---------- BitMIDI ----------
 
+# Mirrors the actual /api/midi/all response envelope.
 BITMIDI_JSON = {
-    "results": [
-        {
-            "name": "Twinkle Twinkle Little Star",
-            "slug": "twinkle-twinkle",
-            "downloadUrl": "https://bitmidi.com/uploads/twinkle-twinkle.mid",
-            "fileSize": 12345,
-        },
-        {
-            "name": "Star Wars Theme",
-            "slug": "star-wars",
-            "downloadUrl": "https://bitmidi.com/uploads/star-wars.mid",
-            "fileSize": 54321,
-        },
-    ]
+    "result": {
+        "results": [
+            {
+                "id": 24946,
+                "name": "Coldplay - Viva La Vida.mid",
+                "slug": "coldplay-viva-la-vida-mid",
+                "url": "/coldplay-viva-la-vida-mid",
+                "downloadUrl": "/uploads/24946.mid",
+                "fileSize": 12345,
+            },
+            {
+                "id": 85261,
+                "name": "Pirates of the Caribbean.mid",
+                "slug": "pirates-mid",
+                "url": "/pirates-mid",
+                "downloadUrl": "/uploads/85261.mid",
+            },
+        ]
+    }
 }
 
 
 async def test_bitmidi_parses_json_api():
+    captured: dict[str, str] = {}
+
     def handler(request: httpx.Request) -> httpx.Response:
+        captured["url"] = str(request.url)
         return httpx.Response(200, json=BITMIDI_JSON)
 
     async with httpx.AsyncClient(transport=httpx.MockTransport(handler)) as client:
         searcher = BitMidiSearcher(client=client)
         results = await searcher.search("twinkle", limit=5)
+    assert "/api/midi/all" in captured["url"]
     assert len(results) == 2
     assert results[0].source == MusicSource.BITMIDI
-    assert results[0].download_url.endswith(".mid")
+    # Relative downloadUrl gets absolutized to the bitmidi host.
+    assert results[0].download_url == "https://bitmidi.com/uploads/24946.mid"
     # 12345 bytes ≈ 12 KB.
     assert results[0].file_size_kb in (12, 13)
 
@@ -144,17 +175,28 @@ async def test_musescore_parses_jsonld():
     assert "MuseScore" in (results[0].preview_keys or "")
 
 
+async def test_musescore_swallows_403():
+    """Cloudflare blocks generic UAs; we must degrade gracefully."""
+    def handler(request: httpx.Request) -> httpx.Response:
+        return httpx.Response(403, text="Forbidden")
+
+    async with httpx.AsyncClient(transport=httpx.MockTransport(handler)) as client:
+        searcher = MuseScoreSearcher(client=client)
+        results = await searcher.search("twinkle", limit=5)
+    assert results == []
+
+
 # ---------- Bilibili ----------
 
 BILI_API_PAGE_1 = {
     "data": {
         "result": [
             {
-                "type": "video",
+                "result_type": "video",
                 "data": [
                     {
                         "bvid": "BV1abc",
-                        "title": "<em>Twinkle</em> 原琴演奏",
+                        "title": '<em class="keyword">Twinkle</em> 原琴演奏',
                         "description": "MIDI 下载：https://github.com/foo/bar/twinkle.mid",
                         "duration": "0:45",
                     },
@@ -196,4 +238,16 @@ async def test_bilibili_strips_em_tags_from_title():
     async with httpx.AsyncClient(transport=httpx.MockTransport(handler)) as client:
         searcher = BilibiliSearcher(client=client)
         results = await searcher.search("twinkle", limit=5)
-    assert "<em>" not in results[0].title and "</em>" not in results[0].title
+    # Both bare <em> and <em class="keyword"> must be stripped.
+    assert "<em" not in results[0].title and "</em>" not in results[0].title
+
+
+async def test_bilibili_returns_empty_on_520_rate_limit():
+    """Bilibili occasionally returns 520 under rate limit; must not crash."""
+    def handler(request: httpx.Request) -> httpx.Response:
+        return httpx.Response(520, text="rate limited")
+
+    async with httpx.AsyncClient(transport=httpx.MockTransport(handler)) as client:
+        searcher = BilibiliSearcher(client=client)
+        results = await searcher.search("twinkle", limit=5)
+    assert results == []
