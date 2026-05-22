@@ -45,5 +45,5 @@ async def test_output_midi_is_parseable(tmp_path: Path):
 async def test_transcribe_missing_file_raises(tmp_path: Path):
     bogus = tmp_path / "nope.mp3"
     out = tmp_path / "out.mid"
-    with pytest.raises(TranscriptionError):
+    with pytest.raises(TranscriptionError, match="audio file not found"):
         await transcribe(bogus, out)

@@ -19,6 +19,15 @@ from audio.exceptions import TranscriptionError
 
 _LOG = logging.getLogger(__name__)
 
+# Compatibility shim: basic-pitch 0.3.x uses scipy.signal.gaussian, which
+# moved to scipy.signal.windows.gaussian in scipy >= 1.11. Done at module
+# load (once, single-threaded) to avoid races when multiple transcribe()
+# calls run concurrently in the FastAPI thread pool.
+import scipy.signal
+import scipy.signal.windows
+if not hasattr(scipy.signal, "gaussian"):
+    scipy.signal.gaussian = scipy.signal.windows.gaussian
+
 
 SENSITIVITY_PRESETS: dict[str, float] = {
     "low": 0.7,
@@ -55,6 +64,7 @@ async def transcribe(
     except TranscriptionError:
         raise
     except Exception as exc:  # noqa: BLE001
+        _LOG.warning("basic-pitch raw failure: %s", exc)
         raise TranscriptionError(f"basic-pitch failed: {exc}") from exc
     if not midi_out_path.is_file() or midi_out_path.stat().st_size == 0:
         raise TranscriptionError("basic-pitch produced no output")
@@ -68,13 +78,6 @@ def _run_basic_pitch(
     min_note_length_ms: int,
 ) -> None:
     """Sync helper, called via asyncio.to_thread."""
-    import scipy.signal
-    import scipy.signal.windows
-
-    # Monkey-patch for scipy >=1.11: gaussian moved to windows submodule
-    if not hasattr(scipy.signal, 'gaussian'):
-        scipy.signal.gaussian = scipy.signal.windows.gaussian
-
     from basic_pitch.inference import predict_and_save
     from basic_pitch import ICASSP_2022_MODEL_PATH
 
