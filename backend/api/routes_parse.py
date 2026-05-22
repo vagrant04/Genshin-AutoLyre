@@ -60,7 +60,7 @@ async def parse(
             )
         except DownloadError as exc:
             raise make_error("DOWNLOAD_FAILED", detail=str(exc))
-    return _parse_and_save(target, payload.title, store)
+    return parse_and_save_midi(target, payload.title, store)
 
 
 async def _fetch_via_searcher(
@@ -97,10 +97,10 @@ async def upload(
         raise make_error("FILE_TOO_LARGE")
     target.write_bytes(contents)
     title = Path(filename).stem
-    return _parse_and_save(target, title, store)
+    return parse_and_save_midi(target, title, store)
 
 
-def _parse_and_save(path: Path, title: str, store: ParsedFileStore) -> dict:
+def parse_and_save_midi(path: Path, title: str, store: ParsedFileStore) -> dict:
     try:
         parsed = parse_midi_file(path)
     except ParseError as exc:
