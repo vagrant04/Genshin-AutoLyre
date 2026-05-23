@@ -15,20 +15,28 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from api.errors import ApiError, ApiErrorPayload
+from api.routes_audio import (
+    router as audio_router,
+    get_audio_store,
+)
 from api.routes_generate import router as generate_router
 from api.routes_parse import get_store, router as parse_router
 from api.routes_preview import router as preview_router
 from api.routes_search import router as search_router
 from api.store import ParsedFileStore
+from audio.store import AudioFileStore
 from utils.cache import DEFAULT_CACHE_DIR, ensure_cache_dir
 
 
 file_store = ParsedFileStore()
+audio_store = AudioFileStore()
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     ensure_cache_dir(DEFAULT_CACHE_DIR)
+    (DEFAULT_CACHE_DIR / "audio").mkdir(parents=True, exist_ok=True)
+    (DEFAULT_CACHE_DIR / "midi" / "transcribed").mkdir(parents=True, exist_ok=True)
     yield
 
 
@@ -50,6 +58,7 @@ app.add_middleware(
 )
 
 app.dependency_overrides[get_store] = lambda: file_store
+app.dependency_overrides[get_audio_store] = lambda: audio_store
 
 
 @app.exception_handler(ApiError)
@@ -76,3 +85,4 @@ app.include_router(search_router)
 app.include_router(parse_router)
 app.include_router(generate_router)
 app.include_router(preview_router)
+app.include_router(audio_router)
