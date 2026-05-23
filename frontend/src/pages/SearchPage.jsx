@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { searchMusic } from "../api/client.js";
 import SearchBar from "../components/SearchBar.jsx";
 import LoadingSpinner from "../components/LoadingSpinner.jsx";
+import AudioModeToggle from "../components/AudioModeToggle.jsx";
+import AudioSearchSection from "../components/AudioSearchSection.jsx";
 
 const HISTORY_KEY = "lyre.searchHistory";
 
@@ -25,6 +27,7 @@ export default function SearchPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [history, setHistory] = useState(readHistory());
+  const [mode, setMode] = useState("midi");
 
   async function handleSearch(query) {
     setLoading(true);
@@ -45,34 +48,42 @@ export default function SearchPage() {
     <main className="mx-auto max-w-2xl px-4 py-12">
       <h1 className="mb-2 text-3xl font-bold">原神原琴 AI 编谱</h1>
       <p className="mb-8 text-slate-600">输入曲名，自动生成三版可弹奏琴谱。</p>
-      <SearchBar onSubmit={handleSearch} />
+      <AudioModeToggle value={mode} onChange={setMode} />
 
-      {loading && (
-        <LoadingSpinner label="正在同时搜索 FreeMIDI、BitMIDI、MuseScore、B站…" />
-      )}
-      {error && (
-        <div className="mt-6 rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-800">
-          {error}
-        </div>
-      )}
+      {mode === "midi" ? (
+        <>
+          <SearchBar onSubmit={handleSearch} />
 
-      {history.length > 0 && !loading && (
-        <section className="mt-10">
-          <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-slate-500">
-            最近搜索
-          </h2>
-          <div className="flex flex-wrap gap-2">
-            {history.map((q) => (
-              <button
-                key={q}
-                onClick={() => handleSearch(q)}
-                className="rounded-full border border-slate-300 px-3 py-1 text-sm hover:border-slate-700"
-              >
-                {q}
-              </button>
-            ))}
-          </div>
-        </section>
+          {loading && (
+            <LoadingSpinner label="正在同时搜索 FreeMIDI、BitMIDI、MuseScore、B站…" />
+          )}
+          {error && (
+            <div className="mt-6 rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-800">
+              {error}
+            </div>
+          )}
+
+          {history.length > 0 && !loading && (
+            <section className="mt-10">
+              <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-slate-500">
+                最近搜索
+              </h2>
+              <div className="flex flex-wrap gap-2">
+                {history.map((q) => (
+                  <button
+                    key={q}
+                    onClick={() => handleSearch(q)}
+                    className="rounded-full border border-slate-300 px-3 py-1 text-sm hover:border-slate-700"
+                  >
+                    {q}
+                  </button>
+                ))}
+              </div>
+            </section>
+          )}
+        </>
+      ) : (
+        <AudioSearchSection />
       )}
     </main>
   );
