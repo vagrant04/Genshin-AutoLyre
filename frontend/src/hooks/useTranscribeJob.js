@@ -45,9 +45,14 @@ export default function useTranscribeJob(jobToken) {
           }
         } catch (err) {
           if (cancelRef.current) return;
+          // 404 means the server forgot the job (e.g. it restarted).
+          // Surface a clearer message than the generic "轮询失败".
+          const msg = err.response?.status === 404
+            ? "任务已丢失（服务器可能重启），请重新提交。"
+            : (err.userMessage || "轮询失败");
           setJob({
             stage: "error",
-            error: err.userMessage || "轮询失败",
+            error: msg,
             parse_token: null,
           });
           setIsPolling(false);

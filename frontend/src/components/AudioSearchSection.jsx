@@ -24,6 +24,13 @@ export default function AudioSearchSection() {
 
   const { job, isPolling } = useTranscribeJob(jobToken);
 
+  // Stop polling when this section unmounts (e.g. user toggles to
+  // MIDI mode mid-transcribe). Setting jobToken to null causes
+  // useTranscribeJob's effect to clean itself up.
+  useEffect(() => {
+    return () => setJobToken(null);
+  }, []);
+
   useEffect(() => {
     if (!job || job.stage !== "done" || !job.parse_token) return;
     let cancelled = false;
