@@ -35,6 +35,25 @@ App: http://localhost:5173
 cd backend && .venv/bin/python -m pytest -v
 ```
 
+## System dependencies
+
+- **ffmpeg** must be on your `PATH`. The audio pipeline uses it to decode `.mp3` / `.m4a` / `.mp4` audio before transcription.
+  - macOS: `brew install ffmpeg`
+  - Debian/Ubuntu: `sudo apt install ffmpeg`
+  - Windows: download from [ffmpeg.org](https://ffmpeg.org/download.html) and add to `PATH`.
+
+## Install footprint
+
+The Python backend installs ~1.5 GB of dependencies because of TensorFlow + the Spotify Basic Pitch model used for audio→MIDI transcription. The first transcription request also lazy-loads the model (~30 s on CPU); subsequent requests are fast.
+
+If you only want MIDI search and don't need audio transcription, you can skip installing `basic-pitch` and `yt-dlp`; the audio routes will return errors cleanly and the rest of the app works.
+
+## Scope and disclaimers
+
+- **Solo-piano covers transcribe well.** Full-mix recordings (vocals + drums + bass) produce noisy transcriptions; you'll likely have to delete most accompaniment tracks on the TrackConfig page.
+- **Personal-use only.** This tool downloads audio from third-party platforms (YouTube, Bilibili, QQ Music). Don't deploy it as a public service.
+- **QQ Music is best-effort.** Most tracks are paywalled or geo-blocked; the integration uses an unofficial library that may break. YouTube and Bilibili are the most reliable sources.
+
 ## Architecture
 
 - `backend/mapper/` — per-note mapping to lyre's 21 keys (no global transposition).
