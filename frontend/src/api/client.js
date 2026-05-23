@@ -47,4 +47,50 @@ export async function getPreviewTrack(fileToken, trackIndex, mapped) {
   return resp.data;
 }
 
+export async function searchAudio(query, platform, limit = 5) {
+  const resp = await client.get("/api/audio/search", {
+    params: { q: query, platform, limit },
+  });
+  return resp.data;
+}
+
+export async function transcribeAudioUrl({ url, title, onsetSensitivity, minNoteMs }) {
+  const form = new FormData();
+  form.append("input_mode", "url");
+  form.append("url", url);
+  if (title) form.append("title", title);
+  form.append("onset_sensitivity", onsetSensitivity);
+  form.append("min_note_ms", String(minNoteMs));
+  const resp = await client.post("/api/audio/transcribe", form);
+  return resp.data;
+}
+
+export async function transcribeAudioCandidate({ source, canonicalUrl, title, onsetSensitivity, minNoteMs }) {
+  const form = new FormData();
+  form.append("input_mode", "candidate");
+  form.append("source", source);
+  form.append("canonical_url", canonicalUrl);
+  form.append("title", title);
+  form.append("onset_sensitivity", onsetSensitivity);
+  form.append("min_note_ms", String(minNoteMs));
+  const resp = await client.post("/api/audio/transcribe", form);
+  return resp.data;
+}
+
+export async function transcribeAudioUpload(file, { title, onsetSensitivity, minNoteMs }) {
+  const form = new FormData();
+  form.append("input_mode", "upload");
+  form.append("file", file);
+  form.append("title", title);
+  form.append("onset_sensitivity", onsetSensitivity);
+  form.append("min_note_ms", String(minNoteMs));
+  const resp = await client.post("/api/audio/transcribe", form);
+  return resp.data;
+}
+
+export async function getAudioJob(jobToken) {
+  const resp = await client.get(`/api/audio/jobs/${jobToken}`);
+  return resp.data;
+}
+
 export default client;
