@@ -161,12 +161,23 @@ async def audio_transcribe(
         if not filename.lower().endswith((".mp3", ".m4a", ".mp4", ".wav", ".aac")):
             raise make_error("INVALID_FILE_TYPE")
         cache_root.mkdir(parents=True, exist_ok=True)
-        upload_path = cache_root / "audio" / f"upload_{uuid.uuid4().hex}.audio"
+        upload_path = cache_root / "audio" / f"upload_{uuid.uuid4().hex}.m4a"
         upload_path.parent.mkdir(parents=True, exist_ok=True)
-        contents = await file.read()
-        if len(contents) > 50 * 1024 * 1024:
-            raise make_error("AUDIO_TOO_LARGE")
-        upload_path.write_bytes(contents)
+        # Stream the upload in chunks so a malicious >>50MB file is
+        # rejected without first being held entirely in memory.
+        max_bytes = 50 * 1024 * 1024
+        total = 0
+        with upload_path.open("wb") as out_fh:
+            while True:
+                chunk = await file.read(64 * 1024)
+                if not chunk:
+                    break
+                total += len(chunk)
+                if total > max_bytes:
+                    out_fh.close()
+                    upload_path.unlink(missing_ok=True)
+                    raise make_error("AUDIO_TOO_LARGE")
+                out_fh.write(chunk)
         local_audio_path = upload_path
         resolved_title = title or Path(filename).stem
     else:
@@ -186,6 +197,10 @@ async def audio_transcribe(
     if source is None:
         source = YouTubeSource()  # never invoked in upload mode
 
+    # Note: FastAPI BackgroundTasks continue running even if the client
+    # disconnects mid-transcription. The audio_store entry persists for
+    # the process lifetime; cache files persist until the cache dir is
+    # manually cleared. For an MVP / personal-use tool this is fine.
     background_tasks.add_task(
         run_transcribe_pipeline,
         job_token=job_token,

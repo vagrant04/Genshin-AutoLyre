@@ -130,13 +130,25 @@ async def _resolve_audio(
         return audio_path
 
     audio_store.update(job_token, stage=JobStage.DOWNLOADING)
-    await source.fetch_to_path(request.canonical_url, audio_path)
+    try:
+        await source.fetch_to_path(request.canonical_url, audio_path)
+    except Exception:
+        # Defensive: if the source raised mid-write, the audio cache
+        # file might be partial. Drop it so a retry re-downloads
+        # cleanly rather than handing librosa a truncated file.
+        audio_path.unlink(missing_ok=True)
+        raise
     return audio_path
 
 
 def _audio_cache_path(canonical_url: str, audio_dir: Path) -> Path:
+    """Cache path for downloaded audio. We use .m4a as a generic
+    extension because yt-dlp's `bestaudio` typically returns m4a or
+    webm and librosa/soundfile decodes both regardless. The extension
+    is mostly cosmetic — libsndfile sniffs format from the file
+    content, not the name."""
     h = hashlib.sha256(canonical_url.encode("utf-8")).hexdigest()[:16]
-    return audio_dir / f"{h}.audio"
+    return audio_dir / f"{h}.m4a"
 
 
 def _midi_cache_path(
