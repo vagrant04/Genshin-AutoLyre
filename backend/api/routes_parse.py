@@ -100,6 +100,24 @@ async def upload(
     return parse_and_save_midi(target, title, store)
 
 
+@router.get("/parse/{file_token}")
+async def get_parse_record(
+    file_token: str,
+    store: ParsedFileStore = Depends(get_store),
+) -> dict:
+    try:
+        record = store.get(file_token)
+    except KeyError:
+        raise make_error("FILE_NOT_FOUND", detail=file_token)
+    return {
+        "file_token": file_token,
+        "title": record.title,
+        "bpm": record.parsed.bpm,
+        "ticks_per_beat": record.parsed.ticks_per_beat,
+        "tracks": [t.model_dump(mode="json") for t in record.track_infos],
+    }
+
+
 def parse_and_save_midi(path: Path, title: str, store: ParsedFileStore) -> dict:
     try:
         parsed = parse_midi_file(path)

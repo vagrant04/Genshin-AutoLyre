@@ -93,4 +93,9 @@ export async function getAudioJob(jobToken) {
   return resp.data;
 }
 
+export async function getParseRecord(parseToken) {
+  const resp = await client.get(`/api/parse/${parseToken}`);
+  return resp.data;
+}
+
 export default client;
