@@ -1,0 +1,160 @@
+"""Shared Pydantic models and enums for the Genshin Lyre backend.
+
+Single source of truth for all cross-module types. Importing modules must
+not redefine these. Field names and types match the API contract in §10
+of the requirements doc — changing them is an API-breaking change.
+"""
+from __future__ import annotations
+
+from enum import Enum
+from typing import Optional
+
+from pydantic import BaseModel, Field
+
+
+class MusicSource(str, Enum):
+    FREEMIDI = "freemidi"
+    BITMIDI = "bitmidi"
+    MUSESCORE = "musescore"
+    BILIBILI = "bilibili"
+
+
+class TrackRole(str, Enum):
+    MELODY = "melody"
+    ACCOMPANIMENT = "accompaniment"
+    BASS = "bass"
+    IGNORED = "ignored"
+
+
+class ScoreVersion(str, Enum):
+    MELODY_ONLY = "melody_only"
+    SIMPLIFIED = "simplified"
+    FULL = "full"
+
+
+class ChordPosition(str, Enum):
+    """Role of a note inside a column chord, used by conflict_resolver
+    to decide deletion order. `OTHER` covers melody notes and any
+    accompaniment note that wasn't classified as root/fifth/third."""
+    ROOT = "root"
+    FIFTH = "fifth"
+    THIRD = "third"
+    OTHER = "other"
+
+
+class SearchResult(BaseModel):
+    id: str
+    title: str
+    source: MusicSource
+    source_url: str
+    download_url: Optional[str] = None
+    duration_seconds: Optional[int] = None
+    file_size_kb: Optional[int] = None
+    track_count: Optional[int] = None
+    preview_keys: Optional[str] = None
+    score: float = Field(ge=0.0, le=1.0)
+
+
+class TrackInfo(BaseModel):
+    index: int
+    name: str
+    note_count: int
+    pitch_range: str
+    preview_keys: str
+    suggested_role: TrackRole
+    chord_type: str  # "chordal" | "arpeggiated" | "mixed" | "none"
+
+
+class ParsedNote(BaseModel):
+    midi_num: int
+    start_tick: int
+    duration_tick: int
+    velocity: int
+    track_index: int
+    track_role: TrackRole
+
+
+class MappedNote(BaseModel):
+    original_midi: int
+    mapped_midi: int
+    key_pc: str
+    key_mobile: str
+    start_tick: int
+    duration_tick: int
+    track_role: TrackRole
+    is_out_of_range: bool = False
+    is_semitone_adjusted: bool = False
+    is_chord_reduced: bool = False
+    chord_position: ChordPosition = ChordPosition.OTHER
+
+
+class VersionStats(BaseModel):
+    total_notes: int
+    melody_notes: int
+    accompaniment_notes: int
+    out_of_range_count: int
+    semitone_count: int
+    chord_reduced_count: int
+    max_simultaneous_keys: int
+
+
+class VersionScore(BaseModel):
+    version: ScoreVersion
+    version_label: str
+    pc_score: str = ""        # populated by formatter (single line)
+    mobile_score: str = ""    # populated by formatter (single line)
+    human_score: str = ""     # populated by formatter (one bar per line, with `|`)
+    notes: list[MappedNote]
+    statistics: VersionStats
+
+
+class LyreScore(BaseModel):
+    title: str
+    bpm: int
+    ticks_per_beat: int
+    versions: list[VersionScore]
+
+
+class ParsedTrack(BaseModel):
+    """Raw parser output for one MIDI track. The classifier later reads
+    these and produces TrackInfo (with suggested_role + chord_type)."""
+    index: int
+    name: str
+    notes: list[ParsedNote]
+
+
+class ParsedMidi(BaseModel):
+    """Full result of parsing a local MIDI file."""
+    bpm: int
+    ticks_per_beat: int
+    tracks: list[ParsedTrack]
+    # (numerator, denominator) — defaults to 4/4 when the file has no
+    # time_signature meta event. Used by the formatter to place bar lines.
+    time_signature: tuple[int, int] = (4, 4)
+
+
+class AudioSourceKey(str, Enum):
+    YOUTUBE = "youtube"
+    BILIBILI = "bilibili"
+    QQMUSIC = "qqmusic"
+
+
+class AudioCandidate(BaseModel):
+    """One search result from any audio platform."""
+    source: AudioSourceKey
+    candidate_id: str          # platform-specific id
+    title: str
+    artist: Optional[str] = None
+    duration_seconds: Optional[int] = None
+    thumbnail_url: Optional[str] = None
+    canonical_url: str          # what fetch_to_path consumes
+
+
+class AudioMetadata(BaseModel):
+    """Returned by fetch_to_path after a successful download."""
+    source: AudioSourceKey
+    canonical_url: str
+    title: str
+    duration_seconds: Optional[int] = None
+    file_path: str
+    file_size_bytes: int
