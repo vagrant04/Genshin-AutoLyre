@@ -73,7 +73,11 @@ class YouTubeSource(AbstractAudioSource):
         params = {
             "quiet": True,
             "no_warnings": True,
-            "format": "bestaudio/best",
+            # Order matters: prefer m4a (clean container), fall back to
+            # webm, then any "bestaudio*", then any best. The wildcards
+            # are critical — some videos only have non-audio-only
+            # formats and yt-dlp rejects "bestaudio/best" outright.
+            "format": "bestaudio[ext=m4a]/bestaudio[ext=webm]/bestaudio*/best",
             "outtmpl": str(target),
             "noplaylist": True,
             "postprocessors": [],
@@ -90,11 +94,13 @@ class YouTubeSource(AbstractAudioSource):
             raise SourceUnavailable(
                 "yt-dlp did not produce the expected output file"
             )
+        info_dict = info or {}
+        raw_duration = info_dict.get("duration")
         return AudioMetadata(
             source=self.source,
-            canonical_url=str((info or {}).get("webpage_url") or url),
-            title=str((info or {}).get("title") or target.stem),
-            duration_seconds=(info or {}).get("duration"),
+            canonical_url=str(info_dict.get("webpage_url") or url),
+            title=str(info_dict.get("title") or target.stem),
+            duration_seconds=int(raw_duration) if raw_duration else None,
             file_path=str(target),
             file_size_bytes=target.stat().st_size,
         )

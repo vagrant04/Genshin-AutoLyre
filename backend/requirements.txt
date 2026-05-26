@@ -10,7 +10,7 @@ aiofiles==24.1.0
 pydantic==2.9.2
 pytest==8.3.3
 pytest-asyncio==0.24.0
-yt-dlp==2024.10.22
+yt-dlp>=2026.3.0
 basic-pitch[onnx]>=0.3.0,<0.5
 ffmpeg-python==0.2.0
 qqmusic-api-python>=0.3.6,<0.4
