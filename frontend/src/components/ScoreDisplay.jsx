@@ -38,9 +38,10 @@ export default function ScoreDisplay({ text, mode }) {
     // the content exceeds the parent's width. `whitespace-pre` keeps
     // every space (which encodes rhythm) intact; `inline-block`
     // ensures the <pre> grows to its content rather than shrinking
-    // to its parent.
+    // to its parent. `pb-2` reserves vertical space so the always-on
+    // scrollbar (WebKit + classic Firefox) doesn't overlap the text.
     return (
-      <div className="overflow-x-auto">
+      <div className="score-scroll overflow-x-auto pb-2">
         <pre className="score-mono inline-block whitespace-pre text-base leading-relaxed">
           {highlightOutOfRange(text)}
         </pre>
