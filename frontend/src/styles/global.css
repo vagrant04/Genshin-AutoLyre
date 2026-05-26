@@ -11,23 +11,3 @@ body {
 .score-mono {
   font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 }
-
-/* Always-visible horizontal scrollbar for the PC/mobile score views.
-   Without this, macOS hides the scrollbar until the user actively
-   scrolls, so they can't tell the long line continues offscreen. */
-.score-scroll {
-  /* Firefox */
-  scrollbar-width: thin;
-  scrollbar-color: rgb(100 116 139) rgb(241 245 249);
-}
-.score-scroll::-webkit-scrollbar {
-  height: 10px;
-  background: rgb(241 245 249);
-}
-.score-scroll::-webkit-scrollbar-thumb {
-  background: rgb(100 116 139);
-  border-radius: 5px;
-}
-.score-scroll::-webkit-scrollbar-thumb:hover {
-  background: rgb(71 85 105);
-}

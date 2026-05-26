@@ -32,20 +32,19 @@ export default function ScoreDisplay({ text, mode }) {
   const isSingleLine = mode === "pc" || mode === "mobile";
 
   if (isSingleLine) {
-    // Render the raw text inline (no per-line <div> wrapper) so the
-    // <pre>'s intrinsic width matches the full token stream. The
-    // outer scroll container then provides horizontal scrolling when
-    // the content exceeds the parent's width. `whitespace-pre` keeps
-    // every space (which encodes rhythm) intact; `inline-block`
-    // ensures the <pre> grows to its content rather than shrinking
-    // to its parent. `pb-2` reserves vertical space so the always-on
-    // scrollbar (WebKit + classic Firefox) doesn't overlap the text.
+    // The underlying string is one logical line of rhythm-encoded
+    // tokens (no embedded newlines). Visually we let it wrap at the
+    // single-space gaps between tokens for readability, while the
+    // copy / download buttons still emit the unbroken original string.
+    //
+    // - whitespace-pre-wrap: preserve the multiple-space rest markers
+    //   AND allow wrapping at space boundaries.
+    // - break-keep-all: never break inside a chord group like "(ADG)"
+    //   or a bracketed "[Q]" token; only wrap at the existing spaces.
     return (
-      <div className="score-scroll overflow-x-auto pb-2">
-        <pre className="score-mono inline-block whitespace-pre text-base leading-relaxed">
-          {highlightOutOfRange(text)}
-        </pre>
-      </div>
+      <pre className="score-mono whitespace-pre-wrap break-keep text-base leading-relaxed">
+        {highlightOutOfRange(text)}
+      </pre>
     );
   }
 
