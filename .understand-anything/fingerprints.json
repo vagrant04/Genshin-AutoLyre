@@ -1,0 +1,7230 @@
+{
+  "version": "1.0.0",
+  "gitCommitHash": "be80877791dd2318ea79b03ebececfd8a0834da2",
+  "generatedAt": "2026-05-26T16:24:26.265Z",
+  "files": {
+    ".understand-anything/.understandignore": {
+      "filePath": ".understand-anything/.understandignore",
+      "contentHash": "df75706b6d64890124d480127477d21e90a4249c719237df90cca6da8daf6ba6",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 31,
+      "hasStructuralAnalysis": false
+    },
+    ".understand-anything/config.json": {
+      "filePath": ".understand-anything/config.json",
+      "contentHash": "5d2ff006cff22c68edd4776249d562ea8c73915a61c6214eb85933865a9402e7",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 4,
+      "hasStructuralAnalysis": true
+    },
+    "backend/__init__.py": {
+      "filePath": "backend/__init__.py",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": true
+    },
+    "backend/api/__init__.py": {
+      "filePath": "backend/api/__init__.py",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": true
+    },
+    "backend/api/errors.py": {
+      "filePath": "backend/api/errors.py",
+      "contentHash": "842db7a3f3b1b67219ce74a40d87b3ce87989e2286c2e443ce9f06d0cc54b932",
+      "functions": [
+        {
+          "name": "make_error",
+          "params": [
+            "code",
+            "detail"
+          ],
+          "returnType": "ApiError",
+          "exported": true,
+          "lineCount": 8
+        }
+      ],
+      "classes": [
+        {
+          "name": "ApiErrorPayload",
+          "methods": [],
+          "properties": [
+            "error",
+            "message",
+            "detail"
+          ],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "ApiError",
+          "methods": [
+            "__init__",
+            "to_payload"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 17
+        }
+      ],
+      "imports": [
+        {
+          "source": "fastapi",
+          "specifiers": [
+            "status"
+          ]
+        },
+        {
+          "source": "pydantic",
+          "specifiers": [
+            "BaseModel"
+          ]
+        }
+      ],
+      "exports": [
+        "ApiErrorPayload",
+        "ApiError",
+        "make_error"
+      ],
+      "totalLines": 64,
+      "hasStructuralAnalysis": true
+    },
+    "backend/api/routes_audio.py": {
+      "filePath": "backend/api/routes_audio.py",
+      "contentHash": "985bd142336cb722b1d7ea76a40dfac23cba209bd16de42bb1eccf0da38109fc",
+      "functions": [
+        {
+          "name": "get_audio_cache_root",
+          "params": [],
+          "returnType": "Path",
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "get_audio_store",
+          "params": [],
+          "returnType": "AudioFileStore",
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "get_transcribe_fn",
+          "params": [],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "get_source_for_platform",
+          "params": [
+            "platform"
+          ],
+          "returnType": "AbstractAudioSource",
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "get_source_for_url",
+          "params": [
+            "url"
+          ],
+          "returnType": "AbstractAudioSource",
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "_platform_from_url",
+          "params": [
+            "url"
+          ],
+          "returnType": "Optional[PlatformParam]",
+          "exported": true,
+          "lineCount": 12
+        },
+        {
+          "name": "audio_search",
+          "params": [
+            "q",
+            "platform",
+            "limit",
+            "source"
+          ],
+          "returnType": "dict",
+          "exported": true,
+          "lineCount": 13
+        },
+        {
+          "name": "audio_transcribe",
+          "params": [
+            "background_tasks",
+            "request",
+            "input_mode",
+            "file",
+            "url",
+            "canonical_url",
+            "source_param",
+            "title",
+            "onset_sensitivity",
+            "min_note_ms",
+            "parse_store",
+            "audio_store",
+            "transcribe_fn",
+            "cache_root"
+          ],
+          "returnType": "dict",
+          "exported": true,
+          "lineCount": 97
+        },
+        {
+          "name": "audio_job_status",
+          "params": [
+            "job_token",
+            "audio_store"
+          ],
+          "returnType": "dict",
+          "exported": true,
+          "lineCount": 14
+        }
+      ],
+      "classes": [
+        {
+          "name": "JobStatusResponse",
+          "methods": [],
+          "properties": [
+            "job_token",
+            "stage",
+            "error",
+            "parse_token"
+          ],
+          "exported": true,
+          "lineCount": 5
+        }
+      ],
+      "imports": [
+        {
+          "source": "logging",
+          "specifiers": [
+            "logging"
+          ]
+        },
+        {
+          "source": "uuid",
+          "specifiers": [
+            "uuid"
+          ]
+        },
+        {
+          "source": "pathlib",
+          "specifiers": [
+            "Path"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Annotated",
+            "Literal",
+            "Optional"
+          ]
+        },
+        {
+          "source": "urllib.parse",
+          "specifiers": [
+            "urlparse"
+          ]
+        },
+        {
+          "source": "fastapi",
+          "specifiers": [
+            "APIRouter",
+            "BackgroundTasks",
+            "Depends",
+            "File",
+            "Form",
+            "Query",
+            "Request",
+            "UploadFile"
+          ]
+        },
+        {
+          "source": "pydantic",
+          "specifiers": [
+            "BaseModel"
+          ]
+        },
+        {
+          "source": "api.errors",
+          "specifiers": [
+            "make_error"
+          ]
+        },
+        {
+          "source": "api.routes_parse",
+          "specifiers": [
+            "get_parse_store"
+          ]
+        },
+        {
+          "source": "api.store",
+          "specifiers": [
+            "ParsedFileStore"
+          ]
+        },
+        {
+          "source": "audio.pipeline",
+          "specifiers": [
+            "TranscribeRequest",
+            "run_transcribe_pipeline"
+          ]
+        },
+        {
+          "source": "audio.sources.base",
+          "specifiers": [
+            "AbstractAudioSource"
+          ]
+        },
+        {
+          "source": "audio.sources.bilibili",
+          "specifiers": [
+            "BilibiliSource"
+          ]
+        },
+        {
+          "source": "audio.sources.qqmusic",
+          "specifiers": [
+            "QQMusicSource"
+          ]
+        },
+        {
+          "source": "audio.sources.youtube",
+          "specifiers": [
+            "YouTubeSource"
+          ]
+        },
+        {
+          "source": "audio.store",
+          "specifiers": [
+            "AudioFileStore",
+            "JobStage"
+          ]
+        },
+        {
+          "source": "audio.transcriber",
+          "specifiers": [
+            "DEFAULT_MIN_NOTE_LENGTH_MS",
+            "SENSITIVITY_PRESETS",
+            "default_transcribe"
+          ]
+        }
+      ],
+      "exports": [
+        "JobStatusResponse",
+        "get_audio_cache_root",
+        "get_audio_store",
+        "get_transcribe_fn",
+        "get_source_for_platform",
+        "get_source_for_url",
+        "_platform_from_url",
+        "audio_search",
+        "audio_transcribe",
+        "audio_job_status"
+      ],
+      "totalLines": 232,
+      "hasStructuralAnalysis": true
+    },
+    "backend/api/routes_generate.py": {
+      "filePath": "backend/api/routes_generate.py",
+      "contentHash": "34e86a54d1fe27559ae2c668e53dc54b0436104910d02194811565fdb7772f69",
+      "functions": [
+        {
+          "name": "generate",
+          "params": [
+            "payload",
+            "store"
+          ],
+          "returnType": "dict",
+          "exported": true,
+          "lineCount": 90
+        }
+      ],
+      "classes": [
+        {
+          "name": "GenerateRequest",
+          "methods": [],
+          "properties": [
+            "file_token",
+            "title",
+            "track_roles"
+          ],
+          "exported": true,
+          "lineCount": 4
+        }
+      ],
+      "imports": [
+        {
+          "source": "fastapi",
+          "specifiers": [
+            "APIRouter",
+            "Depends"
+          ]
+        },
+        {
+          "source": "pydantic",
+          "specifiers": [
+            "BaseModel"
+          ]
+        },
+        {
+          "source": "api.errors",
+          "specifiers": [
+            "make_error"
+          ]
+        },
+        {
+          "source": "api.routes_parse",
+          "specifiers": [
+            "get_store"
+          ]
+        },
+        {
+          "source": "api.store",
+          "specifiers": [
+            "ParsedFileStore"
+          ]
+        },
+        {
+          "source": "arranger.merger",
+          "specifiers": [
+            "build_three_versions"
+          ]
+        },
+        {
+          "source": "config",
+          "specifiers": [
+            "ChordPosition",
+            "LyreScore",
+            "MappedNote",
+            "ParsedNote",
+            "ScoreVersion",
+            "TrackRole"
+          ]
+        },
+        {
+          "source": "formatter.score_formatter",
+          "specifiers": [
+            "format_version_score"
+          ]
+        },
+        {
+          "source": "mapper.note_mapper",
+          "specifiers": [
+            "map_notes"
+          ]
+        },
+        {
+          "source": "parser.chord_grouper",
+          "specifiers": [
+            "group_accompaniment"
+          ]
+        }
+      ],
+      "exports": [
+        "GenerateRequest",
+        "generate"
+      ],
+      "totalLines": 127,
+      "hasStructuralAnalysis": true
+    },
+    "backend/api/routes_parse.py": {
+      "filePath": "backend/api/routes_parse.py",
+      "contentHash": "3eff18ccaa5152a9ac62b924388316bc46b926cbe5a6f999d104b3c60028ef5a",
+      "functions": [
+        {
+          "name": "get_store",
+          "params": [],
+          "returnType": "ParsedFileStore",
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "parse",
+          "params": [
+            "payload",
+            "store"
+          ],
+          "returnType": "dict",
+          "exported": true,
+          "lineCount": 14
+        },
+        {
+          "name": "_fetch_via_searcher",
+          "params": [
+            "url",
+            "target",
+            "source"
+          ],
+          "returnType": "None",
+          "exported": true,
+          "lineCount": 16
+        },
+        {
+          "name": "upload",
+          "params": [
+            "file",
+            "store"
+          ],
+          "returnType": "dict",
+          "exported": true,
+          "lineCount": 16
+        },
+        {
+          "name": "get_parse_record",
+          "params": [
+            "file_token",
+            "store"
+          ],
+          "returnType": "dict",
+          "exported": true,
+          "lineCount": 15
+        },
+        {
+          "name": "parse_and_save_midi",
+          "params": [
+            "path",
+            "title",
+            "store"
+          ],
+          "returnType": "dict",
+          "exported": true,
+          "lineCount": 14
+        }
+      ],
+      "classes": [
+        {
+          "name": "ParseRequest",
+          "methods": [],
+          "properties": [
+            "result_id",
+            "download_url",
+            "title",
+            "source"
+          ],
+          "exported": true,
+          "lineCount": 5
+        }
+      ],
+      "imports": [
+        {
+          "source": "logging",
+          "specifiers": [
+            "logging"
+          ]
+        },
+        {
+          "source": "uuid",
+          "specifiers": [
+            "uuid"
+          ]
+        },
+        {
+          "source": "pathlib",
+          "specifiers": [
+            "Path"
+          ]
+        },
+        {
+          "source": "fastapi",
+          "specifiers": [
+            "APIRouter",
+            "Depends",
+            "File",
+            "UploadFile"
+          ]
+        },
+        {
+          "source": "pydantic",
+          "specifiers": [
+            "BaseModel"
+          ]
+        },
+        {
+          "source": "api.errors",
+          "specifiers": [
+            "make_error"
+          ]
+        },
+        {
+          "source": "api.store",
+          "specifiers": [
+            "ParsedFileStore"
+          ]
+        },
+        {
+          "source": "config",
+          "specifiers": [
+            "MusicSource"
+          ]
+        },
+        {
+          "source": "parser.midi_parser",
+          "specifiers": [
+            "ParseError",
+            "parse_midi_file"
+          ]
+        },
+        {
+          "source": "parser.track_classifier",
+          "specifiers": [
+            "classify_tracks"
+          ]
+        },
+        {
+          "source": "search.base",
+          "specifiers": [
+            "BaseMusicSearcher"
+          ]
+        },
+        {
+          "source": "search.bilibili",
+          "specifiers": [
+            "BilibiliSearcher"
+          ]
+        },
+        {
+          "source": "search.bitmidi",
+          "specifiers": [
+            "BitMidiSearcher"
+          ]
+        },
+        {
+          "source": "search.freemidi",
+          "specifiers": [
+            "FreeMidiSearcher"
+          ]
+        },
+        {
+          "source": "search.musescore",
+          "specifiers": [
+            "MuseScoreSearcher"
+          ]
+        },
+        {
+          "source": "utils.cache",
+          "specifiers": [
+            "cache_path_for_url",
+            "ensure_cache_dir",
+            "is_cached",
+            "DEFAULT_CACHE_DIR"
+          ]
+        },
+        {
+          "source": "utils.downloader",
+          "specifiers": [
+            "DownloadError",
+            "download_to_path"
+          ]
+        }
+      ],
+      "exports": [
+        "ParseRequest",
+        "get_store",
+        "parse",
+        "_fetch_via_searcher",
+        "upload",
+        "get_parse_record",
+        "parse_and_save_midi"
+      ],
+      "totalLines": 135,
+      "hasStructuralAnalysis": true
+    },
+    "backend/api/routes_preview.py": {
+      "filePath": "backend/api/routes_preview.py",
+      "contentHash": "2d0f43603706f88f3fc3152b9a56008d5e7e59864cfa6c2bc521e961e53163d6",
+      "functions": [
+        {
+          "name": "preview_track",
+          "params": [
+            "file_token",
+            "track_index",
+            "mapped",
+            "store"
+          ],
+          "returnType": "dict",
+          "exported": true,
+          "lineCount": 54
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "typing",
+          "specifiers": [
+            "Annotated"
+          ]
+        },
+        {
+          "source": "fastapi",
+          "specifiers": [
+            "APIRouter",
+            "Depends",
+            "Query"
+          ]
+        },
+        {
+          "source": "api.errors",
+          "specifiers": [
+            "make_error"
+          ]
+        },
+        {
+          "source": "api.routes_parse",
+          "specifiers": [
+            "get_store"
+          ]
+        },
+        {
+          "source": "api.store",
+          "specifiers": [
+            "ParsedFileStore"
+          ]
+        },
+        {
+          "source": "mapper.note_mapper",
+          "specifiers": [
+            "map_note"
+          ]
+        },
+        {
+          "source": "parser.timing",
+          "specifiers": [
+            "tick_to_ms"
+          ]
+        }
+      ],
+      "exports": [
+        "preview_track"
+      ],
+      "totalLines": 80,
+      "hasStructuralAnalysis": true
+    },
+    "backend/api/routes_search.py": {
+      "filePath": "backend/api/routes_search.py",
+      "contentHash": "8387fcefc0a09a0187cfc638fe74c3e0ad26517d355375d54733dce3a9216237",
+      "functions": [
+        {
+          "name": "get_searchers",
+          "params": [],
+          "returnType": "list",
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "search",
+          "params": [
+            "q",
+            "limit",
+            "searchers"
+          ],
+          "returnType": "dict",
+          "exported": true,
+          "lineCount": 11
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "typing",
+          "specifiers": [
+            "Annotated"
+          ]
+        },
+        {
+          "source": "fastapi",
+          "specifiers": [
+            "APIRouter",
+            "Depends",
+            "Query"
+          ]
+        },
+        {
+          "source": "search.aggregator",
+          "specifiers": [
+            "search_all"
+          ]
+        },
+        {
+          "source": "search.bilibili",
+          "specifiers": [
+            "BilibiliSearcher"
+          ]
+        },
+        {
+          "source": "search.bitmidi",
+          "specifiers": [
+            "BitMidiSearcher"
+          ]
+        },
+        {
+          "source": "search.freemidi",
+          "specifiers": [
+            "FreeMidiSearcher"
+          ]
+        },
+        {
+          "source": "search.musescore",
+          "specifiers": [
+            "MuseScoreSearcher"
+          ]
+        }
+      ],
+      "exports": [
+        "get_searchers",
+        "search"
+      ],
+      "totalLines": 38,
+      "hasStructuralAnalysis": true
+    },
+    "backend/api/store.py": {
+      "filePath": "backend/api/store.py",
+      "contentHash": "0403d4611ed4b0b92083083612df347efec6c6a7874841dad9b963bc781cc058",
+      "functions": [],
+      "classes": [
+        {
+          "name": "StoredRecord",
+          "methods": [],
+          "properties": [
+            "parsed",
+            "title",
+            "track_infos"
+          ],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "ParsedFileStore",
+          "methods": [
+            "__init__",
+            "save",
+            "get"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 19
+        }
+      ],
+      "imports": [
+        {
+          "source": "secrets",
+          "specifiers": [
+            "secrets"
+          ]
+        },
+        {
+          "source": "dataclasses",
+          "specifiers": [
+            "dataclass"
+          ]
+        },
+        {
+          "source": "config",
+          "specifiers": [
+            "ParsedMidi",
+            "TrackInfo"
+          ]
+        }
+      ],
+      "exports": [
+        "StoredRecord",
+        "ParsedFileStore"
+      ],
+      "totalLines": 42,
+      "hasStructuralAnalysis": true
+    },
+    "backend/arranger/__init__.py": {
+      "filePath": "backend/arranger/__init__.py",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": true
+    },
+    "backend/arranger/chord_reducer.py": {
+      "filePath": "backend/arranger/chord_reducer.py",
+      "contentHash": "0d9ff10908a25fbcff122de3dd502682058e2a6745a1dd74c14a37e39714d1d4",
+      "functions": [
+        {
+          "name": "reduce_simultaneous_chord",
+          "params": [
+            "group"
+          ],
+          "returnType": "list[MappedNote]",
+          "exported": true,
+          "lineCount": 45
+        },
+        {
+          "name": "_pick_closest_to",
+          "params": [
+            "candidates",
+            "target"
+          ],
+          "returnType": "MappedNote | None",
+          "exported": true,
+          "lineCount": 4
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "config",
+          "specifiers": [
+            "ChordPosition",
+            "MappedNote"
+          ]
+        }
+      ],
+      "exports": [
+        "reduce_simultaneous_chord",
+        "_pick_closest_to"
+      ],
+      "totalLines": 67,
+      "hasStructuralAnalysis": true
+    },
+    "backend/arranger/conflict_resolver.py": {
+      "filePath": "backend/arranger/conflict_resolver.py",
+      "contentHash": "ad676e23b1846f3a1f41c58105321c6b2aab334ab9884efe7b7887b60ea571d6",
+      "functions": [
+        {
+          "name": "resolve_simultaneous_limit",
+          "params": [
+            "notes"
+          ],
+          "returnType": "list[MappedNote]",
+          "exported": true,
+          "lineCount": 40
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "config",
+          "specifiers": [
+            "ChordPosition",
+            "MappedNote",
+            "TrackRole"
+          ]
+        },
+        {
+          "source": "mapper.constants",
+          "specifiers": [
+            "SIMPLIFIED_MAX_SIMULTANEOUS"
+          ]
+        }
+      ],
+      "exports": [
+        "resolve_simultaneous_limit"
+      ],
+      "totalLines": 66,
+      "hasStructuralAnalysis": true
+    },
+    "backend/arranger/merger.py": {
+      "filePath": "backend/arranger/merger.py",
+      "contentHash": "74a62d4f9e626743ca47caf4131c25681e15e666743553e12847b84337c93287",
+      "functions": [
+        {
+          "name": "build_three_versions",
+          "params": [
+            "melody_notes",
+            "accompaniment_notes",
+            "chord_groups"
+          ],
+          "returnType": "dict[ScoreVersion, VersionScore]",
+          "exported": true,
+          "lineCount": 21
+        },
+        {
+          "name": "_build_melody_only",
+          "params": [
+            "melody_notes"
+          ],
+          "returnType": "VersionScore",
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "_build_simplified",
+          "params": [
+            "melody_notes",
+            "accompaniment_notes",
+            "chord_groups"
+          ],
+          "returnType": "VersionScore",
+          "exported": true,
+          "lineCount": 36
+        },
+        {
+          "name": "_build_full",
+          "params": [
+            "melody_notes",
+            "accompaniment_notes"
+          ],
+          "returnType": "VersionScore",
+          "exported": true,
+          "lineCount": 15
+        },
+        {
+          "name": "_compute_stats",
+          "params": [
+            "notes"
+          ],
+          "returnType": "VersionStats",
+          "exported": true,
+          "lineCount": 13
+        },
+        {
+          "name": "_max_simultaneous",
+          "params": [
+            "notes"
+          ],
+          "returnType": "int",
+          "exported": true,
+          "lineCount": 12
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "config",
+          "specifiers": [
+            "ChordPosition",
+            "MappedNote",
+            "ScoreVersion",
+            "TrackRole",
+            "VersionScore",
+            "VersionStats"
+          ]
+        },
+        {
+          "source": "arranger.chord_reducer",
+          "specifiers": [
+            "reduce_simultaneous_chord"
+          ]
+        },
+        {
+          "source": "arranger.conflict_resolver",
+          "specifiers": [
+            "resolve_simultaneous_limit"
+          ]
+        }
+      ],
+      "exports": [
+        "build_three_versions",
+        "_build_melody_only",
+        "_build_simplified",
+        "_build_full",
+        "_compute_stats",
+        "_max_simultaneous"
+      ],
+      "totalLines": 147,
+      "hasStructuralAnalysis": true
+    },
+    "backend/audio/__init__.py": {
+      "filePath": "backend/audio/__init__.py",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": true
+    },
+    "backend/audio/exceptions.py": {
+      "filePath": "backend/audio/exceptions.py",
+      "contentHash": "1942ff196237b9431af691c76c38bef25799e3555cf119cf66d34c179bb1bf9b",
+      "functions": [],
+      "classes": [
+        {
+          "name": "AudioError",
+          "methods": [],
+          "properties": [],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "SourceUnavailable",
+          "methods": [],
+          "properties": [],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "AudioTooLargeError",
+          "methods": [],
+          "properties": [],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "AudioTooLongError",
+          "methods": [],
+          "properties": [],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "TranscriptionError",
+          "methods": [],
+          "properties": [],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "InvalidAudioUrlError",
+          "methods": [],
+          "properties": [],
+          "exported": true,
+          "lineCount": 2
+        }
+      ],
+      "imports": [],
+      "exports": [
+        "AudioError",
+        "SourceUnavailable",
+        "AudioTooLargeError",
+        "AudioTooLongError",
+        "TranscriptionError",
+        "InvalidAudioUrlError"
+      ],
+      "totalLines": 34,
+      "hasStructuralAnalysis": true
+    },
+    "backend/audio/pipeline.py": {
+      "filePath": "backend/audio/pipeline.py",
+      "contentHash": "020e8c8e13002e89e799916b99b328da57bb4fe15a62051eef576f3ead7aca1b",
+      "functions": [
+        {
+          "name": "run_transcribe_pipeline",
+          "params": [
+            "job_token",
+            "request",
+            "source",
+            "transcribe_fn",
+            "parse_store",
+            "audio_store",
+            "cache_root"
+          ],
+          "returnType": "None",
+          "exported": true,
+          "lineCount": 59
+        },
+        {
+          "name": "_resolve_audio",
+          "params": [
+            "request",
+            "source",
+            "audio_dir",
+            "audio_store",
+            "job_token"
+          ],
+          "returnType": "Path",
+          "exported": true,
+          "lineCount": 28
+        },
+        {
+          "name": "_audio_cache_path",
+          "params": [
+            "canonical_url",
+            "audio_dir"
+          ],
+          "returnType": "Path",
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "_midi_cache_path",
+          "params": [
+            "request",
+            "audio_path",
+            "midi_dir"
+          ],
+          "returnType": "Path",
+          "exported": true,
+          "lineCount": 11
+        }
+      ],
+      "classes": [
+        {
+          "name": "TranscribeRequest",
+          "methods": [],
+          "properties": [
+            "title",
+            "onset_threshold",
+            "min_note_length_ms",
+            "canonical_url",
+            "local_audio_path"
+          ],
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "_SourceLike",
+          "methods": [
+            "fetch_to_path"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 2
+        }
+      ],
+      "imports": [
+        {
+          "source": "hashlib",
+          "specifiers": [
+            "hashlib"
+          ]
+        },
+        {
+          "source": "logging",
+          "specifiers": [
+            "logging"
+          ]
+        },
+        {
+          "source": "dataclasses",
+          "specifiers": [
+            "dataclass"
+          ]
+        },
+        {
+          "source": "pathlib",
+          "specifiers": [
+            "Path"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Any",
+            "Awaitable",
+            "Callable",
+            "Optional",
+            "Protocol"
+          ]
+        },
+        {
+          "source": "audio.exceptions",
+          "specifiers": [
+            "AudioError",
+            "SourceUnavailable",
+            "TranscriptionError"
+          ]
+        },
+        {
+          "source": "audio.store",
+          "specifiers": [
+            "AudioFileStore",
+            "JobStage"
+          ]
+        },
+        {
+          "source": "api.routes_parse",
+          "specifiers": [
+            "parse_and_save_midi"
+          ]
+        },
+        {
+          "source": "api.store",
+          "specifiers": [
+            "ParsedFileStore"
+          ]
+        }
+      ],
+      "exports": [
+        "TranscribeRequest",
+        "_SourceLike",
+        "run_transcribe_pipeline",
+        "_resolve_audio",
+        "_audio_cache_path",
+        "_midi_cache_path"
+      ],
+      "totalLines": 165,
+      "hasStructuralAnalysis": true
+    },
+    "backend/audio/sources/__init__.py": {
+      "filePath": "backend/audio/sources/__init__.py",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": true
+    },
+    "backend/audio/sources/base.py": {
+      "filePath": "backend/audio/sources/base.py",
+      "contentHash": "8e81381c4ae51e3960396f5cea1a2ae912dd5fc79d4887173d80e254143e73f4",
+      "functions": [],
+      "classes": [
+        {
+          "name": "AbstractAudioSource",
+          "methods": [
+            "search",
+            "_do_search",
+            "fetch_to_path"
+          ],
+          "properties": [
+            "source"
+          ],
+          "exported": true,
+          "lineCount": 17
+        }
+      ],
+      "imports": [
+        {
+          "source": "abc",
+          "specifiers": [
+            "abc"
+          ]
+        },
+        {
+          "source": "logging",
+          "specifiers": [
+            "logging"
+          ]
+        },
+        {
+          "source": "pathlib",
+          "specifiers": [
+            "Path"
+          ]
+        },
+        {
+          "source": "config",
+          "specifiers": [
+            "AudioCandidate",
+            "AudioMetadata",
+            "AudioSourceKey"
+          ]
+        }
+      ],
+      "exports": [
+        "AbstractAudioSource"
+      ],
+      "totalLines": 37,
+      "hasStructuralAnalysis": true
+    },
+    "backend/audio/sources/bilibili.py": {
+      "filePath": "backend/audio/sources/bilibili.py",
+      "contentHash": "95ba35443312825d24f15e625064352fffa0897c82bb7b195f1346715bc51246",
+      "functions": [
+        {
+          "name": "_default_factory",
+          "params": [
+            "params"
+          ],
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "_default_http_client_factory",
+          "params": [],
+          "returnType": "httpx.AsyncClient",
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "_parse_duration",
+          "params": [
+            "raw"
+          ],
+          "returnType": "Optional[int]",
+          "exported": true,
+          "lineCount": 20
+        }
+      ],
+      "classes": [
+        {
+          "name": "BilibiliSource",
+          "methods": [
+            "__init__",
+            "_do_search",
+            "_extract_video_section",
+            "fetch_to_path",
+            "_extract"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 130
+        }
+      ],
+      "imports": [
+        {
+          "source": "asyncio",
+          "specifiers": [
+            "asyncio"
+          ]
+        },
+        {
+          "source": "logging",
+          "specifiers": [
+            "logging"
+          ]
+        },
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "re",
+          "specifiers": [
+            "re"
+          ]
+        },
+        {
+          "source": "pathlib",
+          "specifiers": [
+            "Path"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Any",
+            "Callable",
+            "Optional"
+          ]
+        },
+        {
+          "source": "httpx",
+          "specifiers": [
+            "httpx"
+          ]
+        },
+        {
+          "source": "audio.exceptions",
+          "specifiers": [
+            "SourceUnavailable"
+          ]
+        },
+        {
+          "source": "audio.sources.base",
+          "specifiers": [
+            "AbstractAudioSource"
+          ]
+        },
+        {
+          "source": "config",
+          "specifiers": [
+            "AudioCandidate",
+            "AudioMetadata",
+            "AudioSourceKey"
+          ]
+        }
+      ],
+      "exports": [
+        "_default_factory",
+        "_default_http_client_factory",
+        "BilibiliSource",
+        "_parse_duration"
+      ],
+      "totalLines": 206,
+      "hasStructuralAnalysis": true
+    },
+    "backend/audio/sources/qqmusic.py": {
+      "filePath": "backend/audio/sources/qqmusic.py",
+      "contentHash": "0b305d866c5267deb2f32d0cd0421d825d7db78350841225944cfe6f51590c26",
+      "functions": [
+        {
+          "name": "_maybe_await",
+          "params": [
+            "value"
+          ],
+          "returnType": "Any",
+          "exported": true,
+          "lineCount": 6
+        }
+      ],
+      "classes": [
+        {
+          "name": "_ClientProtocol",
+          "methods": [
+            "search",
+            "get_audio_url",
+            "download"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "_DefaultClient",
+          "methods": [
+            "search",
+            "get_audio_url",
+            "download"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 31
+        },
+        {
+          "name": "QQMusicSource",
+          "methods": [
+            "__init__",
+            "_do_search",
+            "fetch_to_path"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 68
+        }
+      ],
+      "imports": [
+        {
+          "source": "asyncio",
+          "specifiers": [
+            "asyncio"
+          ]
+        },
+        {
+          "source": "inspect",
+          "specifiers": [
+            "inspect"
+          ]
+        },
+        {
+          "source": "logging",
+          "specifiers": [
+            "logging"
+          ]
+        },
+        {
+          "source": "re",
+          "specifiers": [
+            "re"
+          ]
+        },
+        {
+          "source": "pathlib",
+          "specifiers": [
+            "Path"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Any",
+            "Optional",
+            "Protocol"
+          ]
+        },
+        {
+          "source": "httpx",
+          "specifiers": [
+            "httpx"
+          ]
+        },
+        {
+          "source": "audio.exceptions",
+          "specifiers": [
+            "SourceUnavailable"
+          ]
+        },
+        {
+          "source": "audio.sources.base",
+          "specifiers": [
+            "AbstractAudioSource"
+          ]
+        },
+        {
+          "source": "config",
+          "specifiers": [
+            "AudioCandidate",
+            "AudioMetadata",
+            "AudioSourceKey"
+          ]
+        }
+      ],
+      "exports": [
+        "_ClientProtocol",
+        "_DefaultClient",
+        "_maybe_await",
+        "QQMusicSource"
+      ],
+      "totalLines": 146,
+      "hasStructuralAnalysis": true
+    },
+    "backend/audio/sources/youtube.py": {
+      "filePath": "backend/audio/sources/youtube.py",
+      "contentHash": "f83b30cb95bffa7f9d42b73f27ee287f6fd33ad3e1e1d3b32aa8eb2e7746097e",
+      "functions": [
+        {
+          "name": "_default_factory",
+          "params": [
+            "params"
+          ],
+          "exported": true,
+          "lineCount": 3
+        }
+      ],
+      "classes": [
+        {
+          "name": "YouTubeSource",
+          "methods": [
+            "__init__",
+            "_do_search",
+            "fetch_to_path",
+            "_extract"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 90
+        }
+      ],
+      "imports": [
+        {
+          "source": "asyncio",
+          "specifiers": [
+            "asyncio"
+          ]
+        },
+        {
+          "source": "logging",
+          "specifiers": [
+            "logging"
+          ]
+        },
+        {
+          "source": "pathlib",
+          "specifiers": [
+            "Path"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Any",
+            "Callable"
+          ]
+        },
+        {
+          "source": "audio.exceptions",
+          "specifiers": [
+            "SourceUnavailable"
+          ]
+        },
+        {
+          "source": "audio.sources.base",
+          "specifiers": [
+            "AbstractAudioSource"
+          ]
+        },
+        {
+          "source": "config",
+          "specifiers": [
+            "AudioCandidate",
+            "AudioMetadata",
+            "AudioSourceKey"
+          ]
+        }
+      ],
+      "exports": [
+        "_default_factory",
+        "YouTubeSource"
+      ],
+      "totalLines": 119,
+      "hasStructuralAnalysis": true
+    },
+    "backend/audio/store.py": {
+      "filePath": "backend/audio/store.py",
+      "contentHash": "87854c4b1fe4904142ea87cd5340d84736700048c8c2985927c48de17a4e3520",
+      "functions": [],
+      "classes": [
+        {
+          "name": "JobStage",
+          "methods": [],
+          "properties": [],
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "AudioJob",
+          "methods": [],
+          "properties": [
+            "stage",
+            "error",
+            "parse_token"
+          ],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "AudioFileStore",
+          "methods": [
+            "__init__",
+            "create_job",
+            "get",
+            "update"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 31
+        }
+      ],
+      "imports": [
+        {
+          "source": "secrets",
+          "specifiers": [
+            "secrets"
+          ]
+        },
+        {
+          "source": "dataclasses",
+          "specifiers": [
+            "dataclass"
+          ]
+        },
+        {
+          "source": "enum",
+          "specifiers": [
+            "Enum"
+          ]
+        },
+        {
+          "source": "threading",
+          "specifiers": [
+            "Lock"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Optional"
+          ]
+        }
+      ],
+      "exports": [
+        "JobStage",
+        "AudioJob",
+        "AudioFileStore"
+      ],
+      "totalLines": 70,
+      "hasStructuralAnalysis": true
+    },
+    "backend/audio/transcriber.py": {
+      "filePath": "backend/audio/transcriber.py",
+      "contentHash": "5a09ead5891d94ee599434d6ceda54c158e716463488c34c89edf89689d2c9a4",
+      "functions": [
+        {
+          "name": "transcribe",
+          "params": [
+            "audio_path",
+            "midi_out_path",
+            "onset_threshold",
+            "min_note_length_ms"
+          ],
+          "returnType": "Path",
+          "exported": true,
+          "lineCount": 31
+        },
+        {
+          "name": "_run_basic_pitch",
+          "params": [
+            "audio_path",
+            "midi_out_path",
+            "onset_threshold",
+            "min_note_length_ms"
+          ],
+          "returnType": "None",
+          "exported": true,
+          "lineCount": 33
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "asyncio",
+          "specifiers": [
+            "asyncio"
+          ]
+        },
+        {
+          "source": "logging",
+          "specifiers": [
+            "logging"
+          ]
+        },
+        {
+          "source": "shutil",
+          "specifiers": [
+            "shutil"
+          ]
+        },
+        {
+          "source": "tempfile",
+          "specifiers": [
+            "tempfile"
+          ]
+        },
+        {
+          "source": "pathlib",
+          "specifiers": [
+            "Path"
+          ]
+        },
+        {
+          "source": "audio.exceptions",
+          "specifiers": [
+            "TranscriptionError"
+          ]
+        },
+        {
+          "source": "scipy.signal",
+          "specifiers": [
+            "scipy.signal"
+          ]
+        },
+        {
+          "source": "scipy.signal.windows",
+          "specifiers": [
+            "scipy.signal.windows"
+          ]
+        }
+      ],
+      "exports": [
+        "transcribe",
+        "_run_basic_pitch"
+      ],
+      "totalLines": 107,
+      "hasStructuralAnalysis": true
+    },
+    "backend/config.py": {
+      "filePath": "backend/config.py",
+      "contentHash": "877eb33113a790218f9415ab2a048d808bb791e61228affb2a642573465a6db7",
+      "functions": [],
+      "classes": [
+        {
+          "name": "MusicSource",
+          "methods": [],
+          "properties": [],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "TrackRole",
+          "methods": [],
+          "properties": [],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "ScoreVersion",
+          "methods": [],
+          "properties": [],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "ChordPosition",
+          "methods": [],
+          "properties": [],
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "SearchResult",
+          "methods": [],
+          "properties": [
+            "id",
+            "title",
+            "source",
+            "source_url",
+            "download_url",
+            "duration_seconds",
+            "file_size_kb",
+            "track_count",
+            "preview_keys",
+            "score"
+          ],
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "TrackInfo",
+          "methods": [],
+          "properties": [
+            "index",
+            "name",
+            "note_count",
+            "pitch_range",
+            "preview_keys",
+            "suggested_role",
+            "chord_type"
+          ],
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "ParsedNote",
+          "methods": [],
+          "properties": [
+            "midi_num",
+            "start_tick",
+            "duration_tick",
+            "velocity",
+            "track_index",
+            "track_role"
+          ],
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "MappedNote",
+          "methods": [],
+          "properties": [
+            "original_midi",
+            "mapped_midi",
+            "key_pc",
+            "key_mobile",
+            "start_tick",
+            "duration_tick",
+            "track_role",
+            "is_out_of_range",
+            "is_semitone_adjusted",
+            "is_chord_reduced",
+            "chord_position"
+          ],
+          "exported": true,
+          "lineCount": 12
+        },
+        {
+          "name": "VersionStats",
+          "methods": [],
+          "properties": [
+            "total_notes",
+            "melody_notes",
+            "accompaniment_notes",
+            "out_of_range_count",
+            "semitone_count",
+            "chord_reduced_count",
+            "max_simultaneous_keys"
+          ],
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "VersionScore",
+          "methods": [],
+          "properties": [
+            "version",
+            "version_label",
+            "pc_score",
+            "mobile_score",
+            "human_score",
+            "notes",
+            "statistics"
+          ],
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "LyreScore",
+          "methods": [],
+          "properties": [
+            "title",
+            "bpm",
+            "ticks_per_beat",
+            "versions"
+          ],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "ParsedTrack",
+          "methods": [],
+          "properties": [
+            "index",
+            "name",
+            "notes"
+          ],
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "ParsedMidi",
+          "methods": [],
+          "properties": [
+            "bpm",
+            "ticks_per_beat",
+            "tracks",
+            "time_signature"
+          ],
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "AudioSourceKey",
+          "methods": [],
+          "properties": [],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "AudioCandidate",
+          "methods": [],
+          "properties": [
+            "source",
+            "candidate_id",
+            "title",
+            "artist",
+            "duration_seconds",
+            "thumbnail_url",
+            "canonical_url"
+          ],
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "AudioMetadata",
+          "methods": [],
+          "properties": [
+            "source",
+            "canonical_url",
+            "title",
+            "duration_seconds",
+            "file_path",
+            "file_size_bytes"
+          ],
+          "exported": true,
+          "lineCount": 8
+        }
+      ],
+      "imports": [
+        {
+          "source": "enum",
+          "specifiers": [
+            "Enum"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Optional"
+          ]
+        },
+        {
+          "source": "pydantic",
+          "specifiers": [
+            "BaseModel",
+            "Field"
+          ]
+        }
+      ],
+      "exports": [
+        "MusicSource",
+        "TrackRole",
+        "ScoreVersion",
+        "ChordPosition",
+        "SearchResult",
+        "TrackInfo",
+        "ParsedNote",
+        "MappedNote",
+        "VersionStats",
+        "VersionScore",
+        "LyreScore",
+        "ParsedTrack",
+        "ParsedMidi",
+        "AudioSourceKey",
+        "AudioCandidate",
+        "AudioMetadata"
+      ],
+      "totalLines": 161,
+      "hasStructuralAnalysis": true
+    },
+    "backend/formatter/__init__.py": {
+      "filePath": "backend/formatter/__init__.py",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": true
+    },
+    "backend/formatter/score_formatter.py": {
+      "filePath": "backend/formatter/score_formatter.py",
+      "contentHash": "664ed14b4b1f0a9492f25e2b7c5f2a1e467d24bc9f301851b28e5f7de85c1704",
+      "functions": [
+        {
+          "name": "format_version_score",
+          "params": [
+            "version",
+            "ticks_per_beat",
+            "time_signature"
+          ],
+          "returnType": "VersionScore",
+          "exported": true,
+          "lineCount": 48
+        },
+        {
+          "name": "_group_simultaneous",
+          "params": [
+            "notes"
+          ],
+          "returnType": "list[list[MappedNote]]",
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "_detect_slot_ticks",
+          "params": [
+            "groups",
+            "ticks_per_beat"
+          ],
+          "returnType": "int",
+          "exported": true,
+          "lineCount": 27
+        },
+        {
+          "name": "_render_grid",
+          "params": [
+            "grid",
+            "last_slot",
+            "mode"
+          ],
+          "returnType": "list[str]",
+          "exported": true,
+          "lineCount": 16
+        },
+        {
+          "name": "_render_group",
+          "params": [
+            "group",
+            "mode"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "_render_single",
+          "params": [
+            "note",
+            "mode"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "_render_human",
+          "params": [
+            "grid",
+            "last_slot",
+            "slot_ticks",
+            "ticks_per_beat",
+            "time_signature"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 32
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "math",
+          "specifiers": [
+            "gcd"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Iterable"
+          ]
+        },
+        {
+          "source": "config",
+          "specifiers": [
+            "MappedNote",
+            "VersionScore"
+          ]
+        }
+      ],
+      "exports": [
+        "format_version_score",
+        "_group_simultaneous",
+        "_detect_slot_ticks",
+        "_render_grid",
+        "_render_group",
+        "_render_single",
+        "_render_human"
+      ],
+      "totalLines": 194,
+      "hasStructuralAnalysis": true
+    },
+    "backend/main.py": {
+      "filePath": "backend/main.py",
+      "contentHash": "f8d60ad1de6e5cd58e2bfb5eada1f4d5173c0c4772e43103c7cb1685c39b7add",
+      "functions": [
+        {
+          "name": "lifespan",
+          "params": [
+            "app"
+          ],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "api_error_handler",
+          "params": [
+            "_",
+            "exc"
+          ],
+          "returnType": "JSONResponse",
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "unhandled_exception_handler",
+          "params": [
+            "_",
+            "exc"
+          ],
+          "returnType": "JSONResponse",
+          "exported": true,
+          "lineCount": 9
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "contextlib",
+          "specifiers": [
+            "asynccontextmanager"
+          ]
+        },
+        {
+          "source": "fastapi",
+          "specifiers": [
+            "FastAPI",
+            "Request"
+          ]
+        },
+        {
+          "source": "fastapi.middleware.cors",
+          "specifiers": [
+            "CORSMiddleware"
+          ]
+        },
+        {
+          "source": "fastapi.responses",
+          "specifiers": [
+            "JSONResponse"
+          ]
+        },
+        {
+          "source": "api.errors",
+          "specifiers": [
+            "ApiError",
+            "ApiErrorPayload"
+          ]
+        },
+        {
+          "source": "api.routes_audio",
+          "specifiers": [
+            "get_audio_store",
+            "audio_router"
+          ]
+        },
+        {
+          "source": "api.routes_generate",
+          "specifiers": [
+            "generate_router"
+          ]
+        },
+        {
+          "source": "api.routes_parse",
+          "specifiers": [
+            "get_store",
+            "parse_router"
+          ]
+        },
+        {
+          "source": "api.routes_preview",
+          "specifiers": [
+            "preview_router"
+          ]
+        },
+        {
+          "source": "api.routes_search",
+          "specifiers": [
+            "search_router"
+          ]
+        },
+        {
+          "source": "api.store",
+          "specifiers": [
+            "ParsedFileStore"
+          ]
+        },
+        {
+          "source": "audio.store",
+          "specifiers": [
+            "AudioFileStore"
+          ]
+        },
+        {
+          "source": "utils.cache",
+          "specifiers": [
+            "DEFAULT_CACHE_DIR",
+            "ensure_cache_dir"
+          ]
+        }
+      ],
+      "exports": [
+        "lifespan",
+        "api_error_handler",
+        "unhandled_exception_handler"
+      ],
+      "totalLines": 89,
+      "hasStructuralAnalysis": true
+    },
+    "backend/mapper/__init__.py": {
+      "filePath": "backend/mapper/__init__.py",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": true
+    },
+    "backend/mapper/constants.py": {
+      "filePath": "backend/mapper/constants.py",
+      "contentHash": "7dbc644126f56a4a87c7f40bb7d99a4be98c3c3fb6e61172faafa68afb219f73",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 36,
+      "hasStructuralAnalysis": true
+    },
+    "backend/mapper/note_mapper.py": {
+      "filePath": "backend/mapper/note_mapper.py",
+      "contentHash": "d1cf90ab5ee32cbca0455bdd72e8ccd09fb0f790115248ae075a9fef5342b6ac",
+      "functions": [
+        {
+          "name": "_round_semitone",
+          "params": [
+            "midi"
+          ],
+          "returnType": "tuple[int, bool]",
+          "exported": true,
+          "lineCount": 12
+        },
+        {
+          "name": "_clamp_range",
+          "params": [
+            "midi"
+          ],
+          "returnType": "tuple[int, bool]",
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "_snap_to_legal",
+          "params": [
+            "midi"
+          ],
+          "returnType": "int",
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "map_note",
+          "params": [
+            "note"
+          ],
+          "returnType": "MappedNote",
+          "exported": true,
+          "lineCount": 15
+        },
+        {
+          "name": "map_notes",
+          "params": [
+            "notes"
+          ],
+          "returnType": "list[MappedNote]",
+          "exported": true,
+          "lineCount": 4
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "typing",
+          "specifiers": [
+            "Iterable"
+          ]
+        },
+        {
+          "source": "config",
+          "specifiers": [
+            "MappedNote",
+            "ParsedNote"
+          ]
+        },
+        {
+          "source": "mapper.constants",
+          "specifiers": [
+            "LEGAL_MIDI",
+            "LEGAL_MIDI_SET",
+            "MIDI_LOWER_BOUND",
+            "MIDI_TO_MOBILE",
+            "MIDI_TO_PC",
+            "MIDI_UPPER_BOUND",
+            "NATURAL_PITCH_CLASSES"
+          ]
+        }
+      ],
+      "exports": [
+        "_round_semitone",
+        "_clamp_range",
+        "_snap_to_legal",
+        "map_note",
+        "map_notes"
+      ],
+      "totalLines": 80,
+      "hasStructuralAnalysis": true
+    },
+    "backend/parser/__init__.py": {
+      "filePath": "backend/parser/__init__.py",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": true
+    },
+    "backend/parser/chord_grouper.py": {
+      "filePath": "backend/parser/chord_grouper.py",
+      "contentHash": "4ab6f91dfa421b6410dfdb79248d5b0525362b576eb1886bb26b7dee0d2b8320",
+      "functions": [
+        {
+          "name": "group_accompaniment",
+          "params": [
+            "notes"
+          ],
+          "returnType": "list[list[ParsedNote]]",
+          "exported": true,
+          "lineCount": 12
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "config",
+          "specifiers": [
+            "ParsedNote"
+          ]
+        }
+      ],
+      "exports": [
+        "group_accompaniment"
+      ],
+      "totalLines": 26,
+      "hasStructuralAnalysis": true
+    },
+    "backend/parser/midi_parser.py": {
+      "filePath": "backend/parser/midi_parser.py",
+      "contentHash": "cea6761535be3a53db994418a283b0fad69065f61b2d92d4c0fe46fa86af62f0",
+      "functions": [
+        {
+          "name": "parse_midi_file",
+          "params": [
+            "path"
+          ],
+          "returnType": "ParsedMidi",
+          "exported": true,
+          "lineCount": 22
+        },
+        {
+          "name": "_extract_bpm",
+          "params": [
+            "midi"
+          ],
+          "returnType": "int",
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "_extract_time_signature",
+          "params": [
+            "midi"
+          ],
+          "returnType": "tuple[int, int]",
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "_extract_track_name",
+          "params": [
+            "track"
+          ],
+          "returnType": "str | None",
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "_extract_notes",
+          "params": [
+            "track",
+            "track_index"
+          ],
+          "returnType": "list[ParsedNote]",
+          "exported": true,
+          "lineCount": 31
+        }
+      ],
+      "classes": [
+        {
+          "name": "ParseError",
+          "methods": [],
+          "properties": [],
+          "exported": true,
+          "lineCount": 2
+        }
+      ],
+      "imports": [
+        {
+          "source": "pathlib",
+          "specifiers": [
+            "Path"
+          ]
+        },
+        {
+          "source": "mido",
+          "specifiers": [
+            "mido"
+          ]
+        },
+        {
+          "source": "config",
+          "specifiers": [
+            "ParsedMidi",
+            "ParsedNote",
+            "ParsedTrack",
+            "TrackRole"
+          ]
+        }
+      ],
+      "exports": [
+        "ParseError",
+        "parse_midi_file",
+        "_extract_bpm",
+        "_extract_time_signature",
+        "_extract_track_name",
+        "_extract_notes"
+      ],
+      "totalLines": 104,
+      "hasStructuralAnalysis": true
+    },
+    "backend/parser/timing.py": {
+      "filePath": "backend/parser/timing.py",
+      "contentHash": "57a674b725468906252884504a1d2b46a171a9a7740c01d579f1a5931c6d224a",
+      "functions": [
+        {
+          "name": "tick_to_ms",
+          "params": [
+            "tick",
+            "ticks_per_beat",
+            "bpm"
+          ],
+          "returnType": "int",
+          "exported": true,
+          "lineCount": 9
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [
+        "tick_to_ms"
+      ],
+      "totalLines": 17,
+      "hasStructuralAnalysis": true
+    },
+    "backend/parser/track_classifier.py": {
+      "filePath": "backend/parser/track_classifier.py",
+      "contentHash": "d944a33225d4fc31148db1efdac85adf914548096b4e4b695e43de9b11bb5d40",
+      "functions": [
+        {
+          "name": "classify_tracks",
+          "params": [
+            "parsed"
+          ],
+          "returnType": "list[TrackInfo]",
+          "exported": true,
+          "lineCount": 51
+        },
+        {
+          "name": "_classify_by_rules",
+          "params": [
+            "track"
+          ],
+          "returnType": "TrackRole | None",
+          "exported": true,
+          "lineCount": 16
+        },
+        {
+          "name": "_score_track",
+          "params": [
+            "track"
+          ],
+          "returnType": "float",
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "_detect_chord_type",
+          "params": [
+            "notes"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 31
+        },
+        {
+          "name": "_format_pitch_range",
+          "params": [
+            "notes"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "_midi_to_name",
+          "params": [
+            "midi"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "_preview_keys",
+          "params": [
+            "notes"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 4
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "config",
+          "specifiers": [
+            "ParsedMidi",
+            "ParsedNote",
+            "ParsedTrack",
+            "TrackInfo",
+            "TrackRole"
+          ]
+        },
+        {
+          "source": "mapper.note_mapper",
+          "specifiers": [
+            "map_note"
+          ]
+        }
+      ],
+      "exports": [
+        "classify_tracks",
+        "_classify_by_rules",
+        "_score_track",
+        "_detect_chord_type",
+        "_format_pitch_range",
+        "_midi_to_name",
+        "_preview_keys"
+      ],
+      "totalLines": 154,
+      "hasStructuralAnalysis": true
+    },
+    "backend/pyproject.toml": {
+      "filePath": "backend/pyproject.toml",
+      "contentHash": "1cc933e957dfcce32b55b01457ab164978fe22a2f6712c441be5f3c5ae2470ae",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 9,
+      "hasStructuralAnalysis": true
+    },
+    "backend/requirements.txt": {
+      "filePath": "backend/requirements.txt",
+      "contentHash": "2c63880b6f99716af5f8f8184f50ebc791194012ca89e7d2319bd66702bef809",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 21,
+      "hasStructuralAnalysis": false
+    },
+    "backend/search/__init__.py": {
+      "filePath": "backend/search/__init__.py",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": true
+    },
+    "backend/search/aggregator.py": {
+      "filePath": "backend/search/aggregator.py",
+      "contentHash": "1728bc8fff9015da3c44d878b1b6c5ccdb091e31b775ce1f1fae5a5011116686",
+      "functions": [
+        {
+          "name": "search_all",
+          "params": [
+            "searchers",
+            "query",
+            "per_source_limit"
+          ],
+          "returnType": "list[SearchResult]",
+          "exported": true,
+          "lineCount": 14
+        },
+        {
+          "name": "aggregate_results",
+          "params": [
+            "results"
+          ],
+          "returnType": "list[SearchResult]",
+          "exported": true,
+          "lineCount": 16
+        },
+        {
+          "name": "_find_similar",
+          "params": [
+            "candidate",
+            "pool"
+          ],
+          "returnType": "int | None",
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "_normalize",
+          "params": [
+            "title"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 2
+        }
+      ],
+      "classes": [
+        {
+          "name": "_Searcher",
+          "methods": [
+            "search"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 2
+        }
+      ],
+      "imports": [
+        {
+          "source": "asyncio",
+          "specifiers": [
+            "asyncio"
+          ]
+        },
+        {
+          "source": "difflib",
+          "specifiers": [
+            "SequenceMatcher"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Iterable",
+            "Protocol"
+          ]
+        },
+        {
+          "source": "config",
+          "specifiers": [
+            "SearchResult"
+          ]
+        }
+      ],
+      "exports": [
+        "_Searcher",
+        "search_all",
+        "aggregate_results",
+        "_find_similar",
+        "_normalize"
+      ],
+      "totalLines": 69,
+      "hasStructuralAnalysis": true
+    },
+    "backend/search/base.py": {
+      "filePath": "backend/search/base.py",
+      "contentHash": "9da38018a6e8e03ab21164a7ba064a0d1cfc68482b2be7d587f8da81518d7477",
+      "functions": [],
+      "classes": [
+        {
+          "name": "BaseMusicSearcher",
+          "methods": [
+            "search",
+            "_do_search",
+            "get_download_url",
+            "fetch_to_path"
+          ],
+          "properties": [
+            "source"
+          ],
+          "exported": true,
+          "lineCount": 23
+        }
+      ],
+      "imports": [
+        {
+          "source": "abc",
+          "specifiers": [
+            "abc"
+          ]
+        },
+        {
+          "source": "logging",
+          "specifiers": [
+            "logging"
+          ]
+        },
+        {
+          "source": "pathlib",
+          "specifiers": [
+            "Path"
+          ]
+        },
+        {
+          "source": "config",
+          "specifiers": [
+            "MusicSource",
+            "SearchResult"
+          ]
+        },
+        {
+          "source": "utils.downloader",
+          "specifiers": [
+            "download_to_path"
+          ]
+        }
+      ],
+      "exports": [
+        "BaseMusicSearcher"
+      ],
+      "totalLines": 47,
+      "hasStructuralAnalysis": true
+    },
+    "backend/search/bilibili.py": {
+      "filePath": "backend/search/bilibili.py",
+      "contentHash": "9c687723ddeba6fdba0f5be2529cd57cf91b02e5d6085fc232c12ee6065042a3",
+      "functions": [],
+      "classes": [
+        {
+          "name": "BilibiliSearcher",
+          "methods": [
+            "__init__",
+            "_do_search",
+            "_extract_video_section",
+            "get_download_url"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 65
+        }
+      ],
+      "imports": [
+        {
+          "source": "hashlib",
+          "specifiers": [
+            "hashlib"
+          ]
+        },
+        {
+          "source": "re",
+          "specifiers": [
+            "re"
+          ]
+        },
+        {
+          "source": "httpx",
+          "specifiers": [
+            "httpx"
+          ]
+        },
+        {
+          "source": "config",
+          "specifiers": [
+            "MusicSource",
+            "SearchResult"
+          ]
+        },
+        {
+          "source": "search.base",
+          "specifiers": [
+            "BaseMusicSearcher"
+          ]
+        }
+      ],
+      "exports": [
+        "BilibiliSearcher"
+      ],
+      "totalLines": 92,
+      "hasStructuralAnalysis": true
+    },
+    "backend/search/bitmidi.py": {
+      "filePath": "backend/search/bitmidi.py",
+      "contentHash": "64c9c2496dcec8f1c7fcd49305cb528ce30f8372f13e5f391ec369be64e57685",
+      "functions": [],
+      "classes": [
+        {
+          "name": "BitMidiSearcher",
+          "methods": [
+            "__init__",
+            "_do_search",
+            "get_download_url"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 70
+        }
+      ],
+      "imports": [
+        {
+          "source": "hashlib",
+          "specifiers": [
+            "hashlib"
+          ]
+        },
+        {
+          "source": "httpx",
+          "specifiers": [
+            "httpx"
+          ]
+        },
+        {
+          "source": "config",
+          "specifiers": [
+            "MusicSource",
+            "SearchResult"
+          ]
+        },
+        {
+          "source": "search.base",
+          "specifiers": [
+            "BaseMusicSearcher"
+          ]
+        }
+      ],
+      "exports": [
+        "BitMidiSearcher"
+      ],
+      "totalLines": 96,
+      "hasStructuralAnalysis": true
+    },
+    "backend/search/freemidi.py": {
+      "filePath": "backend/search/freemidi.py",
+      "contentHash": "3368a2c6cd6a0397d421e32a9d8c00e0135799ab9ab304c5cb434b9c00d096a8",
+      "functions": [
+        {
+          "name": "_slug_to_title",
+          "params": [
+            "slug"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 4
+        }
+      ],
+      "classes": [
+        {
+          "name": "FreeMidiSearcher",
+          "methods": [
+            "__init__",
+            "_do_search",
+            "get_download_url",
+            "fetch_to_path"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 108
+        }
+      ],
+      "imports": [
+        {
+          "source": "hashlib",
+          "specifiers": [
+            "hashlib"
+          ]
+        },
+        {
+          "source": "re",
+          "specifiers": [
+            "re"
+          ]
+        },
+        {
+          "source": "pathlib",
+          "specifiers": [
+            "Path"
+          ]
+        },
+        {
+          "source": "httpx",
+          "specifiers": [
+            "httpx"
+          ]
+        },
+        {
+          "source": "bs4",
+          "specifiers": [
+            "BeautifulSoup"
+          ]
+        },
+        {
+          "source": "config",
+          "specifiers": [
+            "MusicSource",
+            "SearchResult"
+          ]
+        },
+        {
+          "source": "search.base",
+          "specifiers": [
+            "BaseMusicSearcher"
+          ]
+        },
+        {
+          "source": "utils.downloader",
+          "specifiers": [
+            "DownloadError",
+            "MAX_BYTES"
+          ]
+        }
+      ],
+      "exports": [
+        "_slug_to_title",
+        "FreeMidiSearcher"
+      ],
+      "totalLines": 151,
+      "hasStructuralAnalysis": true
+    },
+    "backend/search/musescore.py": {
+      "filePath": "backend/search/musescore.py",
+      "contentHash": "1d8b4b1f8f24bdf69efd1df3cd0dbd0f4553e8d8fa4769166651bb9de9193eb7",
+      "functions": [],
+      "classes": [
+        {
+          "name": "MuseScoreSearcher",
+          "methods": [
+            "__init__",
+            "_do_search",
+            "get_download_url"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 53
+        }
+      ],
+      "imports": [
+        {
+          "source": "hashlib",
+          "specifiers": [
+            "hashlib"
+          ]
+        },
+        {
+          "source": "json",
+          "specifiers": [
+            "json"
+          ]
+        },
+        {
+          "source": "httpx",
+          "specifiers": [
+            "httpx"
+          ]
+        },
+        {
+          "source": "bs4",
+          "specifiers": [
+            "BeautifulSoup"
+          ]
+        },
+        {
+          "source": "config",
+          "specifiers": [
+            "MusicSource",
+            "SearchResult"
+          ]
+        },
+        {
+          "source": "search.base",
+          "specifiers": [
+            "BaseMusicSearcher"
+          ]
+        }
+      ],
+      "exports": [
+        "MuseScoreSearcher"
+      ],
+      "totalLines": 92,
+      "hasStructuralAnalysis": true
+    },
+    "backend/tests/__init__.py": {
+      "filePath": "backend/tests/__init__.py",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": true
+    },
+    "backend/tests/conftest.py": {
+      "filePath": "backend/tests/conftest.py",
+      "contentHash": "8be0ed4b53218b31f1fa375ef0fbb75fd6fec485f612d433cfd5b378cf7be988",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 2,
+      "hasStructuralAnalysis": true
+    },
+    "backend/tests/fixtures/__init__.py": {
+      "filePath": "backend/tests/fixtures/__init__.py",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": true
+    },
+    "backend/tests/fixtures/build_fixture.py": {
+      "filePath": "backend/tests/fixtures/build_fixture.py",
+      "contentHash": "62ccb6d9b990a5d65f1ad8f411d4d6cf024be275bdd5112c1347dcb20932dbcd",
+      "functions": [
+        {
+          "name": "build",
+          "params": [],
+          "returnType": "mido.MidiFile",
+          "exported": true,
+          "lineCount": 33
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "pathlib",
+          "specifiers": [
+            "Path"
+          ]
+        },
+        {
+          "source": "mido",
+          "specifiers": [
+            "mido"
+          ]
+        }
+      ],
+      "exports": [
+        "build"
+      ],
+      "totalLines": 53,
+      "hasStructuralAnalysis": true
+    },
+    "backend/tests/fixtures/twinkle.mid": {
+      "filePath": "backend/tests/fixtures/twinkle.mid",
+      "contentHash": "d8f3e99bb8ef9ae1805ce2732e9c0db4fa05279a83bc9a7a90076b0e4472dec2",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 2,
+      "hasStructuralAnalysis": false
+    },
+    "backend/tests/test_audio_models.py": {
+      "filePath": "backend/tests/test_audio_models.py",
+      "contentHash": "a613a623a42648bd75884ef58795d18defe8230ba1355d2966e80478e0b4f649",
+      "functions": [
+        {
+          "name": "test_search_swallows_exceptions_returns_empty",
+          "params": [],
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "test_search_returns_results_on_success",
+          "params": [],
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "test_fetch_writes_to_target",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 7
+        }
+      ],
+      "classes": [
+        {
+          "name": "_FakeRaisingSource",
+          "methods": [
+            "_do_search",
+            "fetch_to_path"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "_FakeOkSource",
+          "methods": [
+            "_do_search",
+            "fetch_to_path"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 22
+        }
+      ],
+      "imports": [
+        {
+          "source": "pathlib",
+          "specifiers": [
+            "Path"
+          ]
+        },
+        {
+          "source": "pytest",
+          "specifiers": [
+            "pytest"
+          ]
+        },
+        {
+          "source": "audio.exceptions",
+          "specifiers": [
+            "SourceUnavailable"
+          ]
+        },
+        {
+          "source": "audio.sources.base",
+          "specifiers": [
+            "AbstractAudioSource"
+          ]
+        },
+        {
+          "source": "config",
+          "specifiers": [
+            "AudioCandidate",
+            "AudioMetadata",
+            "AudioSourceKey"
+          ]
+        }
+      ],
+      "exports": [
+        "_FakeRaisingSource",
+        "_FakeOkSource",
+        "test_search_swallows_exceptions_returns_empty",
+        "test_search_returns_results_on_success",
+        "test_fetch_writes_to_target"
+      ],
+      "totalLines": 67,
+      "hasStructuralAnalysis": true
+    },
+    "backend/tests/test_audio_pipeline.py": {
+      "filePath": "backend/tests/test_audio_pipeline.py",
+      "contentHash": "237baa584ee46cbb1afb6c74d1b15aea3f16806397e12fe1a3e22d02b9554056",
+      "functions": [
+        {
+          "name": "_build_tiny_midi",
+          "params": [
+            "path"
+          ],
+          "returnType": "None",
+          "exported": true,
+          "lineCount": 10
+        },
+        {
+          "name": "_stub_transcribe",
+          "params": [
+            "audio_path",
+            "midi_out_path",
+            "**kwargs"
+          ],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "test_pipeline_completes_full_sequence",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 29
+        },
+        {
+          "name": "test_pipeline_uses_cached_audio_on_repeat",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 25
+        },
+        {
+          "name": "test_pipeline_uses_cached_midi_on_repeat",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 33
+        },
+        {
+          "name": "test_pipeline_marks_error_on_source_failure",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 25
+        },
+        {
+          "name": "test_pipeline_marks_error_on_transcription_failure",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 23
+        },
+        {
+          "name": "test_pipeline_uses_local_upload_path",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 24
+        }
+      ],
+      "classes": [
+        {
+          "name": "_StubSource",
+          "methods": [
+            "__init__",
+            "search",
+            "fetch_to_path"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 20
+        }
+      ],
+      "imports": [
+        {
+          "source": "pathlib",
+          "specifiers": [
+            "Path"
+          ]
+        },
+        {
+          "source": "mido",
+          "specifiers": [
+            "mido"
+          ]
+        },
+        {
+          "source": "pytest",
+          "specifiers": [
+            "pytest"
+          ]
+        },
+        {
+          "source": "audio.exceptions",
+          "specifiers": [
+            "SourceUnavailable",
+            "TranscriptionError"
+          ]
+        },
+        {
+          "source": "audio.pipeline",
+          "specifiers": [
+            "run_transcribe_pipeline",
+            "TranscribeRequest"
+          ]
+        },
+        {
+          "source": "audio.store",
+          "specifiers": [
+            "AudioFileStore",
+            "JobStage"
+          ]
+        },
+        {
+          "source": "api.store",
+          "specifiers": [
+            "ParsedFileStore"
+          ]
+        },
+        {
+          "source": "config",
+          "specifiers": [
+            "AudioMetadata",
+            "AudioSourceKey"
+          ]
+        }
+      ],
+      "exports": [
+        "_build_tiny_midi",
+        "_StubSource",
+        "_stub_transcribe",
+        "test_pipeline_completes_full_sequence",
+        "test_pipeline_uses_cached_audio_on_repeat",
+        "test_pipeline_uses_cached_midi_on_repeat",
+        "test_pipeline_marks_error_on_source_failure",
+        "test_pipeline_marks_error_on_transcription_failure",
+        "test_pipeline_uses_local_upload_path"
+      ],
+      "totalLines": 234,
+      "hasStructuralAnalysis": true
+    },
+    "backend/tests/test_audio_sources_bilibili.py": {
+      "filePath": "backend/tests/test_audio_sources_bilibili.py",
+      "contentHash": "3d704df731fc45d4fbbd3e6554db915179c0313ea9f5c89eb29dd40e58b53318",
+      "functions": [
+        {
+          "name": "_ydl_factory",
+          "params": [
+            "params"
+          ],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "_httpx_mock",
+          "params": [
+            "payload"
+          ],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "test_search_returns_candidates",
+          "params": [],
+          "exported": true,
+          "lineCount": 15
+        },
+        {
+          "name": "test_search_skips_non_video_sections",
+          "params": [],
+          "exported": true,
+          "lineCount": 18
+        },
+        {
+          "name": "test_search_swallows_http_error",
+          "params": [],
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "test_fetch_writes_audio",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 9
+        }
+      ],
+      "classes": [
+        {
+          "name": "_StubYDL",
+          "methods": [
+            "__init__",
+            "__enter__",
+            "__exit__",
+            "extract_info"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 10
+        }
+      ],
+      "imports": [
+        {
+          "source": "pathlib",
+          "specifiers": [
+            "Path"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Any"
+          ]
+        },
+        {
+          "source": "httpx",
+          "specifiers": [
+            "httpx"
+          ]
+        },
+        {
+          "source": "pytest",
+          "specifiers": [
+            "pytest"
+          ]
+        },
+        {
+          "source": "audio.exceptions",
+          "specifiers": [
+            "SourceUnavailable"
+          ]
+        },
+        {
+          "source": "audio.sources.bilibili",
+          "specifiers": [
+            "BilibiliSource"
+          ]
+        },
+        {
+          "source": "config",
+          "specifiers": [
+            "AudioSourceKey"
+          ]
+        }
+      ],
+      "exports": [
+        "_StubYDL",
+        "_ydl_factory",
+        "_httpx_mock",
+        "test_search_returns_candidates",
+        "test_search_skips_non_video_sections",
+        "test_search_swallows_http_error",
+        "test_fetch_writes_audio"
+      ],
+      "totalLines": 142,
+      "hasStructuralAnalysis": true
+    },
+    "backend/tests/test_audio_sources_qqmusic.py": {
+      "filePath": "backend/tests/test_audio_sources_qqmusic.py",
+      "contentHash": "113dad18407825e7635c46493c651b743cfe03f83d429ead29c6734914295be2",
+      "functions": [
+        {
+          "name": "test_search_returns_candidates",
+          "params": [],
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "test_fetch_raises_when_paywalled",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "test_fetch_writes_audio",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 13
+        }
+      ],
+      "classes": [
+        {
+          "name": "_StubClient",
+          "methods": [
+            "__init__",
+            "search",
+            "get_audio_url",
+            "download"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 10
+        }
+      ],
+      "imports": [
+        {
+          "source": "pathlib",
+          "specifiers": [
+            "Path"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Any"
+          ]
+        },
+        {
+          "source": "pytest",
+          "specifiers": [
+            "pytest"
+          ]
+        },
+        {
+          "source": "audio.exceptions",
+          "specifiers": [
+            "SourceUnavailable"
+          ]
+        },
+        {
+          "source": "audio.sources.qqmusic",
+          "specifiers": [
+            "QQMusicSource"
+          ]
+        },
+        {
+          "source": "config",
+          "specifiers": [
+            "AudioSourceKey"
+          ]
+        }
+      ],
+      "exports": [
+        "_StubClient",
+        "test_search_returns_candidates",
+        "test_fetch_raises_when_paywalled",
+        "test_fetch_writes_audio"
+      ],
+      "totalLines": 73,
+      "hasStructuralAnalysis": true
+    },
+    "backend/tests/test_audio_sources_youtube.py": {
+      "filePath": "backend/tests/test_audio_sources_youtube.py",
+      "contentHash": "04a3734047a11ef6d40e37e5012e2f23ad0565b9ae0bc30f8bb703bcb600aa82",
+      "functions": [
+        {
+          "name": "_factory",
+          "params": [
+            "params"
+          ],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "test_search_returns_candidates",
+          "params": [],
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "test_fetch_writes_audio",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 10
+        },
+        {
+          "name": "test_fetch_propagates_extractor_failure_as_unavailable",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 13
+        }
+      ],
+      "classes": [
+        {
+          "name": "_StubYDL",
+          "methods": [
+            "__init__",
+            "__enter__",
+            "__exit__",
+            "extract_info"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 19
+        }
+      ],
+      "imports": [
+        {
+          "source": "pathlib",
+          "specifiers": [
+            "Path"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Any"
+          ]
+        },
+        {
+          "source": "pytest",
+          "specifiers": [
+            "pytest"
+          ]
+        },
+        {
+          "source": "audio.exceptions",
+          "specifiers": [
+            "SourceUnavailable"
+          ]
+        },
+        {
+          "source": "audio.sources.youtube",
+          "specifiers": [
+            "YouTubeSource"
+          ]
+        },
+        {
+          "source": "config",
+          "specifiers": [
+            "AudioSourceKey"
+          ]
+        }
+      ],
+      "exports": [
+        "_StubYDL",
+        "_factory",
+        "test_search_returns_candidates",
+        "test_fetch_writes_audio",
+        "test_fetch_propagates_extractor_failure_as_unavailable"
+      ],
+      "totalLines": 93,
+      "hasStructuralAnalysis": true
+    },
+    "backend/tests/test_audio_store.py": {
+      "filePath": "backend/tests/test_audio_store.py",
+      "contentHash": "00564f53cf1f38fa2587ce196d1dbd50b04eb04c316ba9e64d30ff350c86faf0",
+      "functions": [
+        {
+          "name": "test_create_returns_token_with_prefix",
+          "params": [],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "test_get_returns_initial_state",
+          "params": [],
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "test_update_stage",
+          "params": [],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "test_complete_with_parse_token",
+          "params": [],
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "test_get_unknown_raises_keyerror",
+          "params": [],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "test_update_unknown_raises_keyerror",
+          "params": [],
+          "exported": true,
+          "lineCount": 4
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "pytest",
+          "specifiers": [
+            "pytest"
+          ]
+        },
+        {
+          "source": "audio.store",
+          "specifiers": [
+            "AudioFileStore",
+            "JobStage"
+          ]
+        }
+      ],
+      "exports": [
+        "test_create_returns_token_with_prefix",
+        "test_get_returns_initial_state",
+        "test_update_stage",
+        "test_complete_with_parse_token",
+        "test_get_unknown_raises_keyerror",
+        "test_update_unknown_raises_keyerror"
+      ],
+      "totalLines": 50,
+      "hasStructuralAnalysis": true
+    },
+    "backend/tests/test_audio_transcriber.py": {
+      "filePath": "backend/tests/test_audio_transcriber.py",
+      "contentHash": "7697c8e3b988853b90b9707d62a28b862400c4b6bcd60ec7a7fd49d1b2286f19",
+      "functions": [
+        {
+          "name": "test_transcribes_to_midi",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "test_output_midi_is_parseable",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "test_transcribe_missing_file_raises",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 5
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "pathlib",
+          "specifiers": [
+            "Path"
+          ]
+        },
+        {
+          "source": "pytest",
+          "specifiers": [
+            "pytest"
+          ]
+        },
+        {
+          "source": "mido",
+          "specifiers": [
+            "mido"
+          ]
+        },
+        {
+          "source": "audio.exceptions",
+          "specifiers": [
+            "TranscriptionError"
+          ]
+        },
+        {
+          "source": "audio.transcriber",
+          "specifiers": [
+            "transcribe"
+          ]
+        }
+      ],
+      "exports": [
+        "test_transcribes_to_midi",
+        "test_output_midi_is_parseable",
+        "test_transcribe_missing_file_raises"
+      ],
+      "totalLines": 50,
+      "hasStructuralAnalysis": true
+    },
+    "backend/tests/test_cache.py": {
+      "filePath": "backend/tests/test_cache.py",
+      "contentHash": "fe60bc12f25149bc515546f792046225d8d71ebbeeb2b24eb244c343c27fd658",
+      "functions": [
+        {
+          "name": "test_cache_path_is_deterministic",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "test_different_urls_produce_different_paths",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "test_cache_path_lives_under_base",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "test_cache_path_uses_mid_extension",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "test_is_cached_false_when_missing",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "test_is_cached_true_after_write",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "test_ensure_cache_dir_creates_directory",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "test_ensure_cache_dir_idempotent",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 5
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "pathlib",
+          "specifiers": [
+            "Path"
+          ]
+        },
+        {
+          "source": "pytest",
+          "specifiers": [
+            "pytest"
+          ]
+        },
+        {
+          "source": "utils.cache",
+          "specifiers": [
+            "cache_path_for_url",
+            "ensure_cache_dir",
+            "is_cached"
+          ]
+        }
+      ],
+      "exports": [
+        "test_cache_path_is_deterministic",
+        "test_different_urls_produce_different_paths",
+        "test_cache_path_lives_under_base",
+        "test_cache_path_uses_mid_extension",
+        "test_is_cached_false_when_missing",
+        "test_is_cached_true_after_write",
+        "test_ensure_cache_dir_creates_directory",
+        "test_ensure_cache_dir_idempotent"
+      ],
+      "totalLines": 54,
+      "hasStructuralAnalysis": true
+    },
+    "backend/tests/test_chord_grouper.py": {
+      "filePath": "backend/tests/test_chord_grouper.py",
+      "contentHash": "bdee9e383aed9182d72c0e9d460e02e8339e27bdda5123c672b79d48f3a7767b",
+      "functions": [
+        {
+          "name": "_n",
+          "params": [
+            "midi",
+            "start"
+          ],
+          "returnType": "ParsedNote",
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "test_simultaneous_notes_grouped",
+          "params": [],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "test_notes_within_tolerance_grouped",
+          "params": [],
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "test_notes_beyond_tolerance_separate_groups",
+          "params": [],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "test_singletons_form_one_note_groups",
+          "params": [],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "test_input_order_preserved_within_groups",
+          "params": [],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "test_empty_input_returns_empty_list",
+          "params": [],
+          "exported": true,
+          "lineCount": 2
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "config",
+          "specifiers": [
+            "ParsedNote",
+            "TrackRole"
+          ]
+        },
+        {
+          "source": "parser.chord_grouper",
+          "specifiers": [
+            "group_accompaniment"
+          ]
+        }
+      ],
+      "exports": [
+        "_n",
+        "test_simultaneous_notes_grouped",
+        "test_notes_within_tolerance_grouped",
+        "test_notes_beyond_tolerance_separate_groups",
+        "test_singletons_form_one_note_groups",
+        "test_input_order_preserved_within_groups",
+        "test_empty_input_returns_empty_list"
+      ],
+      "totalLines": 55,
+      "hasStructuralAnalysis": true
+    },
+    "backend/tests/test_chord_reducer.py": {
+      "filePath": "backend/tests/test_chord_reducer.py",
+      "contentHash": "ffbaa93bc81fcdb8de2610f5bc36dc9fd0693b395202e3ef8df831739a9485be",
+      "functions": [
+        {
+          "name": "_mapped",
+          "params": [
+            "midi",
+            "key_pc",
+            "key_mobile"
+          ],
+          "returnType": "MappedNote",
+          "exported": true,
+          "lineCount": 10
+        }
+      ],
+      "classes": [
+        {
+          "name": "TestColumnChordReduction",
+          "methods": [
+            "test_three_note_major_chord_keeps_root_and_fifth",
+            "test_four_note_chord_drops_extras",
+            "test_single_note_passes_through",
+            "test_two_note_chord_keeps_both"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 49
+        }
+      ],
+      "imports": [
+        {
+          "source": "pytest",
+          "specifiers": [
+            "pytest"
+          ]
+        },
+        {
+          "source": "config",
+          "specifiers": [
+            "ChordPosition",
+            "MappedNote",
+            "TrackRole"
+          ]
+        },
+        {
+          "source": "arranger.chord_reducer",
+          "specifiers": [
+            "reduce_simultaneous_chord"
+          ]
+        }
+      ],
+      "exports": [
+        "_mapped",
+        "TestColumnChordReduction"
+      ],
+      "totalLines": 71,
+      "hasStructuralAnalysis": true
+    },
+    "backend/tests/test_conflict_resolver.py": {
+      "filePath": "backend/tests/test_conflict_resolver.py",
+      "contentHash": "1da32b9408e17714161bf71a70ec6d7d3925ca40e1b97024ac701e3ccc9aeac5",
+      "functions": [
+        {
+          "name": "_note",
+          "params": [
+            "midi",
+            "role",
+            "start",
+            "duration",
+            "chord_position"
+          ],
+          "returnType": "MappedNote",
+          "exported": true,
+          "lineCount": 18
+        },
+        {
+          "name": "_kept",
+          "params": [
+            "notes"
+          ],
+          "returnType": "list[MappedNote]",
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "_max_simultaneous",
+          "params": [
+            "notes"
+          ],
+          "returnType": "int",
+          "exported": true,
+          "lineCount": 9
+        }
+      ],
+      "classes": [
+        {
+          "name": "TestSimultaneousLimit",
+          "methods": [
+            "test_three_melody_three_accompaniment_drops_to_four",
+            "test_four_melody_two_accompaniment_drops_all_accompaniment",
+            "test_five_melody_notes_all_survive",
+            "test_four_total_notes_unchanged",
+            "test_non_overlapping_notes_unaffected"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 73
+        }
+      ],
+      "imports": [
+        {
+          "source": "config",
+          "specifiers": [
+            "ChordPosition",
+            "MappedNote",
+            "TrackRole"
+          ]
+        },
+        {
+          "source": "arranger.conflict_resolver",
+          "specifiers": [
+            "resolve_simultaneous_limit"
+          ]
+        }
+      ],
+      "exports": [
+        "_note",
+        "_kept",
+        "_max_simultaneous",
+        "TestSimultaneousLimit"
+      ],
+      "totalLines": 116,
+      "hasStructuralAnalysis": true
+    },
+    "backend/tests/test_downloader.py": {
+      "filePath": "backend/tests/test_downloader.py",
+      "contentHash": "e2818b88d629a5348991ddaf9055110f0e0974d1be78480d7fdd027b0adddd1d",
+      "functions": [
+        {
+          "name": "make_client",
+          "params": [],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "test_downloads_file_to_path",
+          "params": [
+            "tmp_path",
+            "make_client"
+          ],
+          "exported": true,
+          "lineCount": 10
+        },
+        {
+          "name": "test_rejects_files_over_size_limit",
+          "params": [
+            "tmp_path",
+            "make_client"
+          ],
+          "exported": true,
+          "lineCount": 15
+        },
+        {
+          "name": "test_raises_on_http_error",
+          "params": [
+            "tmp_path",
+            "make_client"
+          ],
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "test_streams_without_content_length",
+          "params": [
+            "tmp_path",
+            "make_client"
+          ],
+          "exported": true,
+          "lineCount": 11
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "pathlib",
+          "specifiers": [
+            "Path"
+          ]
+        },
+        {
+          "source": "httpx",
+          "specifiers": [
+            "httpx"
+          ]
+        },
+        {
+          "source": "pytest",
+          "specifiers": [
+            "pytest"
+          ]
+        },
+        {
+          "source": "utils.downloader",
+          "specifiers": [
+            "DownloadError",
+            "download_to_path"
+          ]
+        }
+      ],
+      "exports": [
+        "make_client",
+        "test_downloads_file_to_path",
+        "test_rejects_files_over_size_limit",
+        "test_raises_on_http_error",
+        "test_streams_without_content_length"
+      ],
+      "totalLines": 73,
+      "hasStructuralAnalysis": true
+    },
+    "backend/tests/test_mapper.py": {
+      "filePath": "backend/tests/test_mapper.py",
+      "contentHash": "f1a2759652d62c9fe9192fbbfbfa66ae72066202de02ca6f16e341198b13b226",
+      "functions": [
+        {
+          "name": "_note",
+          "params": [
+            "midi",
+            "role"
+          ],
+          "returnType": "ParsedNote",
+          "exported": true,
+          "lineCount": 9
+        }
+      ],
+      "classes": [
+        {
+          "name": "TestKeyTableCompleteness",
+          "methods": [
+            "test_pc_table_has_all_21_keys",
+            "test_mobile_table_has_all_21_keys"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "TestNaturalNotesPassThrough",
+          "methods": [
+            "test_c4_unchanged",
+            "test_g4_unchanged"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 14
+        },
+        {
+          "name": "TestSemitoneRounding",
+          "methods": [
+            "test_f_sharp_4_rounds_down_to_f4",
+            "test_b_flat_4_rounds_down_to_a4",
+            "test_c_sharp_4_rounds_to_c4",
+            "test_natural_note_is_not_marked_adjusted"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 25
+        },
+        {
+          "name": "TestOutOfRangeShift",
+          "methods": [
+            "test_c2_lifted_to_c3",
+            "test_b6_dropped_to_b5",
+            "test_extremely_low_note_lifts_repeatedly",
+            "test_extremely_high_note_drops_repeatedly"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 26
+        },
+        {
+          "name": "TestNoGlobalTransposition",
+          "methods": [
+            "test_each_note_processed_independently",
+            "test_one_outlier_does_not_drag_others",
+            "test_track_role_is_preserved"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 30
+        }
+      ],
+      "imports": [
+        {
+          "source": "pytest",
+          "specifiers": [
+            "pytest"
+          ]
+        },
+        {
+          "source": "config",
+          "specifiers": [
+            "ParsedNote",
+            "TrackRole"
+          ]
+        },
+        {
+          "source": "mapper.constants",
+          "specifiers": [
+            "LEGAL_MIDI",
+            "MIDI_TO_MOBILE",
+            "MIDI_TO_PC"
+          ]
+        },
+        {
+          "source": "mapper.note_mapper",
+          "specifiers": [
+            "map_note",
+            "map_notes"
+          ]
+        }
+      ],
+      "exports": [
+        "_note",
+        "TestKeyTableCompleteness",
+        "TestNaturalNotesPassThrough",
+        "TestSemitoneRounding",
+        "TestOutOfRangeShift",
+        "TestNoGlobalTransposition"
+      ],
+      "totalLines": 133,
+      "hasStructuralAnalysis": true
+    },
+    "backend/tests/test_merger.py": {
+      "filePath": "backend/tests/test_merger.py",
+      "contentHash": "e5616d5e9cf5c94af147dca9d9c43665251564d10d3d5f74a30f18a77a975ccc",
+      "functions": [
+        {
+          "name": "_n",
+          "params": [
+            "midi",
+            "role",
+            "start",
+            "duration"
+          ],
+          "returnType": "MappedNote",
+          "exported": true,
+          "lineCount": 16
+        },
+        {
+          "name": "_kept",
+          "params": [
+            "notes"
+          ],
+          "exported": true,
+          "lineCount": 2
+        }
+      ],
+      "classes": [
+        {
+          "name": "TestMelodyOnlyVersion",
+          "methods": [
+            "test_excludes_all_accompaniment"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "TestSimplifiedVersion",
+          "methods": [
+            "test_max_simultaneous_within_limit",
+            "test_melody_count_preserved_under_pressure"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 23
+        },
+        {
+          "name": "TestFullVersion",
+          "methods": [
+            "test_all_notes_kept",
+            "test_full_allows_more_than_four_simultaneous"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 27
+        },
+        {
+          "name": "TestVersionLabels",
+          "methods": [
+            "test_three_versions_returned",
+            "test_chinese_labels"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 14
+        }
+      ],
+      "imports": [
+        {
+          "source": "config",
+          "specifiers": [
+            "ChordPosition",
+            "MappedNote",
+            "ScoreVersion",
+            "TrackRole"
+          ]
+        },
+        {
+          "source": "arranger.merger",
+          "specifiers": [
+            "build_three_versions"
+          ]
+        }
+      ],
+      "exports": [
+        "_n",
+        "_kept",
+        "TestMelodyOnlyVersion",
+        "TestSimplifiedVersion",
+        "TestFullVersion",
+        "TestVersionLabels"
+      ],
+      "totalLines": 109,
+      "hasStructuralAnalysis": true
+    },
+    "backend/tests/test_midi_parser.py": {
+      "filePath": "backend/tests/test_midi_parser.py",
+      "contentHash": "f11f8fb02132bc0a79db87df5dbe4d8a5f80531d3780fc6cda358e8af229ae6c",
+      "functions": [
+        {
+          "name": "test_parses_bpm_and_resolution",
+          "params": [],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "test_returns_three_tracks",
+          "params": [],
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "test_track_names_preserved",
+          "params": [],
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "test_melody_note_count",
+          "params": [],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "test_chord_track_has_three_notes_at_each_chord_position",
+          "params": [],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "test_filters_zero_velocity_note_on",
+          "params": [],
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "test_filters_very_short_durations",
+          "params": [],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "test_raises_on_missing_file",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 4
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "pathlib",
+          "specifiers": [
+            "Path"
+          ]
+        },
+        {
+          "source": "pytest",
+          "specifiers": [
+            "pytest"
+          ]
+        },
+        {
+          "source": "parser.midi_parser",
+          "specifiers": [
+            "parse_midi_file"
+          ]
+        }
+      ],
+      "exports": [
+        "test_parses_bpm_and_resolution",
+        "test_returns_three_tracks",
+        "test_track_names_preserved",
+        "test_melody_note_count",
+        "test_chord_track_has_three_notes_at_each_chord_position",
+        "test_filters_zero_velocity_note_on",
+        "test_filters_very_short_durations",
+        "test_raises_on_missing_file"
+      ],
+      "totalLines": 64,
+      "hasStructuralAnalysis": true
+    },
+    "backend/tests/test_routes_audio.py": {
+      "filePath": "backend/tests/test_routes_audio.py",
+      "contentHash": "9dc8f131e46ae9e386179460b1cc4d2200e9c29a3714544bb4b995012964ba31",
+      "functions": [
+        {
+          "name": "_build_tiny_midi",
+          "params": [
+            "path"
+          ],
+          "returnType": "None",
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "_stub_transcribe",
+          "params": [
+            "audio_path",
+            "midi_out_path",
+            "**kwargs"
+          ],
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "audio_overrides",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 21
+        },
+        {
+          "name": "test_audio_search_returns_candidates",
+          "params": [
+            "audio_overrides"
+          ],
+          "exported": true,
+          "lineCount": 12
+        },
+        {
+          "name": "test_audio_search_invalid_platform_returns_422",
+          "params": [],
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "_wait_for_done",
+          "params": [
+            "client",
+            "job_token",
+            "timeout"
+          ],
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "test_transcribe_url_completes",
+          "params": [
+            "audio_overrides"
+          ],
+          "exported": true,
+          "lineCount": 19
+        },
+        {
+          "name": "test_transcribe_url_with_invalid_host_returns_400",
+          "params": [],
+          "exported": true,
+          "lineCount": 12
+        },
+        {
+          "name": "test_transcribe_candidate_completes",
+          "params": [
+            "audio_overrides"
+          ],
+          "exported": true,
+          "lineCount": 17
+        },
+        {
+          "name": "test_transcribe_upload_completes",
+          "params": [
+            "audio_overrides",
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 20
+        },
+        {
+          "name": "test_transcribe_upload_rejects_non_audio_extension",
+          "params": [],
+          "exported": true,
+          "lineCount": 14
+        },
+        {
+          "name": "test_jobs_unknown_token_returns_404",
+          "params": [],
+          "exported": true,
+          "lineCount": 5
+        }
+      ],
+      "classes": [
+        {
+          "name": "_StubYouTube",
+          "methods": [
+            "search",
+            "fetch_to_path"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 26
+        }
+      ],
+      "imports": [
+        {
+          "source": "time",
+          "specifiers": [
+            "time"
+          ]
+        },
+        {
+          "source": "pathlib",
+          "specifiers": [
+            "Path"
+          ]
+        },
+        {
+          "source": "mido",
+          "specifiers": [
+            "mido"
+          ]
+        },
+        {
+          "source": "pytest",
+          "specifiers": [
+            "pytest"
+          ]
+        },
+        {
+          "source": "fastapi.testclient",
+          "specifiers": [
+            "TestClient"
+          ]
+        },
+        {
+          "source": "audio.store",
+          "specifiers": [
+            "JobStage"
+          ]
+        },
+        {
+          "source": "config",
+          "specifiers": [
+            "AudioCandidate",
+            "AudioMetadata",
+            "AudioSourceKey"
+          ]
+        },
+        {
+          "source": "main",
+          "specifiers": [
+            "app"
+          ]
+        }
+      ],
+      "exports": [
+        "_StubYouTube",
+        "_build_tiny_midi",
+        "_stub_transcribe",
+        "audio_overrides",
+        "test_audio_search_returns_candidates",
+        "test_audio_search_invalid_platform_returns_422",
+        "_wait_for_done",
+        "test_transcribe_url_completes",
+        "test_transcribe_url_with_invalid_host_returns_400",
+        "test_transcribe_candidate_completes",
+        "test_transcribe_upload_completes",
+        "test_transcribe_upload_rejects_non_audio_extension",
+        "test_jobs_unknown_token_returns_404"
+      ],
+      "totalLines": 215,
+      "hasStructuralAnalysis": true
+    },
+    "backend/tests/test_routes_generate.py": {
+      "filePath": "backend/tests/test_routes_generate.py",
+      "contentHash": "787226f8c35f9a8c536cac7ac7212e66ba6de8413ecd2b14a93d1d4b6f58d00c",
+      "functions": [
+        {
+          "name": "_seed_token",
+          "params": [],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 17
+        },
+        {
+          "name": "test_generate_returns_three_versions",
+          "params": [],
+          "exported": true,
+          "lineCount": 22
+        },
+        {
+          "name": "test_generate_simplified_respects_simultaneous_limit",
+          "params": [],
+          "exported": true,
+          "lineCount": 14
+        },
+        {
+          "name": "test_generate_no_melody_returns_400",
+          "params": [],
+          "exported": true,
+          "lineCount": 13
+        },
+        {
+          "name": "test_generate_unknown_token_returns_404",
+          "params": [],
+          "exported": true,
+          "lineCount": 12
+        },
+        {
+          "name": "test_generate_invalid_track_index_returns_400",
+          "params": [],
+          "exported": true,
+          "lineCount": 13
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "shutil",
+          "specifiers": [
+            "shutil"
+          ]
+        },
+        {
+          "source": "pathlib",
+          "specifiers": [
+            "Path"
+          ]
+        },
+        {
+          "source": "fastapi.testclient",
+          "specifiers": [
+            "TestClient"
+          ]
+        },
+        {
+          "source": "main",
+          "specifiers": [
+            "app",
+            "file_store"
+          ]
+        },
+        {
+          "source": "utils.cache",
+          "specifiers": [
+            "cache_path_for_url"
+          ]
+        }
+      ],
+      "exports": [
+        "_seed_token",
+        "test_generate_returns_three_versions",
+        "test_generate_simplified_respects_simultaneous_limit",
+        "test_generate_no_melody_returns_400",
+        "test_generate_unknown_token_returns_404",
+        "test_generate_invalid_track_index_returns_400"
+      ],
+      "totalLines": 116,
+      "hasStructuralAnalysis": true
+    },
+    "backend/tests/test_routes_parse_get.py": {
+      "filePath": "backend/tests/test_routes_parse_get.py",
+      "contentHash": "4dead39c8eea7860b54f817082c1fbc1998dab92924b2f100acb269ce150de7d",
+      "functions": [
+        {
+          "name": "test_get_parse_record_returns_full_payload",
+          "params": [],
+          "exported": true,
+          "lineCount": 25
+        },
+        {
+          "name": "test_get_parse_record_unknown_returns_404",
+          "params": [],
+          "exported": true,
+          "lineCount": 5
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "shutil",
+          "specifiers": [
+            "shutil"
+          ]
+        },
+        {
+          "source": "pathlib",
+          "specifiers": [
+            "Path"
+          ]
+        },
+        {
+          "source": "fastapi.testclient",
+          "specifiers": [
+            "TestClient"
+          ]
+        },
+        {
+          "source": "main",
+          "specifiers": [
+            "app"
+          ]
+        },
+        {
+          "source": "utils.cache",
+          "specifiers": [
+            "cache_path_for_url"
+          ]
+        }
+      ],
+      "exports": [
+        "test_get_parse_record_returns_full_payload",
+        "test_get_parse_record_unknown_returns_404"
+      ],
+      "totalLines": 47,
+      "hasStructuralAnalysis": true
+    },
+    "backend/tests/test_routes_parse.py": {
+      "filePath": "backend/tests/test_routes_parse.py",
+      "contentHash": "5516672eacfb5ec635fc5e83fe2843ddfd4e0066a8d5b4aca34422c445d01fd8",
+      "functions": [
+        {
+          "name": "test_parse_uses_cached_file_and_returns_tracks",
+          "params": [
+            "tmp_path",
+            "monkeypatch"
+          ],
+          "exported": true,
+          "lineCount": 28
+        },
+        {
+          "name": "test_upload_accepts_midi_file",
+          "params": [],
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "test_upload_rejects_non_midi_extension",
+          "params": [
+            "tmp_path"
+          ],
+          "exported": true,
+          "lineCount": 11
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "shutil",
+          "specifiers": [
+            "shutil"
+          ]
+        },
+        {
+          "source": "pathlib",
+          "specifiers": [
+            "Path"
+          ]
+        },
+        {
+          "source": "pytest",
+          "specifiers": [
+            "pytest"
+          ]
+        },
+        {
+          "source": "fastapi.testclient",
+          "specifiers": [
+            "TestClient"
+          ]
+        },
+        {
+          "source": "main",
+          "specifiers": [
+            "app",
+            "file_store"
+          ]
+        },
+        {
+          "source": "utils.cache",
+          "specifiers": [
+            "cache_path_for_url"
+          ]
+        }
+      ],
+      "exports": [
+        "test_parse_uses_cached_file_and_returns_tracks",
+        "test_upload_accepts_midi_file",
+        "test_upload_rejects_non_midi_extension"
+      ],
+      "totalLines": 70,
+      "hasStructuralAnalysis": true
+    },
+    "backend/tests/test_routes_preview.py": {
+      "filePath": "backend/tests/test_routes_preview.py",
+      "contentHash": "6165aa8a04826f204fed2a7f20da7495c9be221112b8cb13f4cb8dd8a6008823",
+      "functions": [
+        {
+          "name": "_seed_token",
+          "params": [],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "test_preview_returns_mapped_notes",
+          "params": [],
+          "exported": true,
+          "lineCount": 20
+        },
+        {
+          "name": "test_preview_returns_raw_notes",
+          "params": [],
+          "exported": true,
+          "lineCount": 13
+        },
+        {
+          "name": "test_preview_unknown_token_returns_404",
+          "params": [],
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "test_preview_invalid_track_returns_400",
+          "params": [],
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "test_preview_includes_track_metadata",
+          "params": [],
+          "exported": true,
+          "lineCount": 11
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "shutil",
+          "specifiers": [
+            "shutil"
+          ]
+        },
+        {
+          "source": "pathlib",
+          "specifiers": [
+            "Path"
+          ]
+        },
+        {
+          "source": "fastapi.testclient",
+          "specifiers": [
+            "TestClient"
+          ]
+        },
+        {
+          "source": "main",
+          "specifiers": [
+            "app"
+          ]
+        },
+        {
+          "source": "utils.cache",
+          "specifiers": [
+            "cache_path_for_url"
+          ]
+        }
+      ],
+      "exports": [
+        "_seed_token",
+        "test_preview_returns_mapped_notes",
+        "test_preview_returns_raw_notes",
+        "test_preview_unknown_token_returns_404",
+        "test_preview_invalid_track_returns_400",
+        "test_preview_includes_track_metadata"
+      ],
+      "totalLines": 97,
+      "hasStructuralAnalysis": true
+    },
+    "backend/tests/test_routes_search.py": {
+      "filePath": "backend/tests/test_routes_search.py",
+      "contentHash": "33d519a7d4c04c8b24da7a8bb90db3b251e6f660db18dd19e50f3d22b4385708",
+      "functions": [
+        {
+          "name": "_override_with_stub",
+          "params": [],
+          "returnType": "list",
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "test_search_returns_aggregated_results",
+          "params": [],
+          "exported": true,
+          "lineCount": 12
+        },
+        {
+          "name": "test_search_missing_q_returns_422",
+          "params": [],
+          "exported": true,
+          "lineCount": 4
+        }
+      ],
+      "classes": [
+        {
+          "name": "_StubSearcher",
+          "methods": [
+            "__init__",
+            "search"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 15
+        }
+      ],
+      "imports": [
+        {
+          "source": "pytest",
+          "specifiers": [
+            "pytest"
+          ]
+        },
+        {
+          "source": "fastapi.testclient",
+          "specifiers": [
+            "TestClient"
+          ]
+        },
+        {
+          "source": "api.routes_search",
+          "specifiers": [
+            "get_searchers"
+          ]
+        },
+        {
+          "source": "config",
+          "specifiers": [
+            "MusicSource",
+            "SearchResult"
+          ]
+        },
+        {
+          "source": "main",
+          "specifiers": [
+            "app"
+          ]
+        }
+      ],
+      "exports": [
+        "_StubSearcher",
+        "_override_with_stub",
+        "test_search_returns_aggregated_results",
+        "test_search_missing_q_returns_422"
+      ],
+      "totalLines": 51,
+      "hasStructuralAnalysis": true
+    },
+    "backend/tests/test_score_formatter.py": {
+      "filePath": "backend/tests/test_score_formatter.py",
+      "contentHash": "7784942cdbe01f66b7e423a7e18d3da715b6049b66da0f3e401ccfb0412efaca",
+      "functions": [
+        {
+          "name": "_note",
+          "params": [
+            "key_pc",
+            "key_mobile",
+            "start",
+            "duration",
+            "role",
+            "out_of_range"
+          ],
+          "returnType": "MappedNote",
+          "exported": true,
+          "lineCount": 14
+        },
+        {
+          "name": "_version",
+          "params": [
+            "notes"
+          ],
+          "returnType": "VersionScore",
+          "exported": true,
+          "lineCount": 15
+        }
+      ],
+      "classes": [
+        {
+          "name": "TestEmpty",
+          "methods": [
+            "test_empty_input_returns_empty_strings"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "TestSubdivision",
+          "methods": [
+            "test_quarter_notes_use_quarter_grid",
+            "test_eighth_notes_use_eighth_grid",
+            "test_subdivision_floor_is_thirty_second"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 38
+        },
+        {
+          "name": "TestRests",
+          "methods": [
+            "test_quarter_rest_renders_as_three_spaces",
+            "test_half_rest_longer_than_quarter_rest"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 26
+        },
+        {
+          "name": "TestChordsAndOOR",
+          "methods": [
+            "test_simultaneous_notes_one_slot_with_parens",
+            "test_out_of_range_pc_wrapped_in_brackets"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 19
+        },
+        {
+          "name": "TestExclusion",
+          "methods": [
+            "test_chord_reduced_notes_skipped"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 10
+        },
+        {
+          "name": "TestSingleLine",
+          "methods": [
+            "test_pc_score_has_no_newlines"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "TestHumanView",
+          "methods": [
+            "test_human_view_groups_into_4_4_bars",
+            "test_human_view_three_four_makes_three_beat_bars"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 27
+        },
+        {
+          "name": "TestTwinklePhrase",
+          "methods": [
+            "test_twinkle_phrase_renders_correctly"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 25
+        }
+      ],
+      "imports": [
+        {
+          "source": "config",
+          "specifiers": [
+            "MappedNote",
+            "ScoreVersion",
+            "TrackRole",
+            "VersionScore",
+            "VersionStats"
+          ]
+        },
+        {
+          "source": "formatter.score_formatter",
+          "specifiers": [
+            "format_version_score"
+          ]
+        }
+      ],
+      "exports": [
+        "_note",
+        "_version",
+        "TestEmpty",
+        "TestSubdivision",
+        "TestRests",
+        "TestChordsAndOOR",
+        "TestExclusion",
+        "TestSingleLine",
+        "TestHumanView",
+        "TestTwinklePhrase"
+      ],
+      "totalLines": 250,
+      "hasStructuralAnalysis": true
+    },
+    "backend/tests/test_search_aggregator.py": {
+      "filePath": "backend/tests/test_search_aggregator.py",
+      "contentHash": "8b71977e1ca5bf7ddfa9522d39dcff9731f4bd05c30d3f091678ae6e44c74bb4",
+      "functions": [
+        {
+          "name": "_r",
+          "params": [
+            "source",
+            "title",
+            "score",
+            "download"
+          ],
+          "returnType": "SearchResult",
+          "exported": true,
+          "lineCount": 10
+        },
+        {
+          "name": "test_search_all_combines_results_from_all_sources",
+          "params": [],
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "test_search_all_swallows_searcher_exceptions",
+          "params": [],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "test_aggregate_dedupes_similar_titles_keeping_higher_score",
+          "params": [],
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "test_aggregate_orders_results_with_download_first",
+          "params": [],
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "test_aggregate_total_capped_at_20",
+          "params": [],
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "test_aggregate_empty_input_returns_empty",
+          "params": [],
+          "exported": true,
+          "lineCount": 2
+        }
+      ],
+      "classes": [
+        {
+          "name": "_StubSearcher",
+          "methods": [
+            "__init__",
+            "search"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "_RaisingSearcher",
+          "methods": [
+            "search"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 7
+        }
+      ],
+      "imports": [
+        {
+          "source": "typing",
+          "specifiers": [
+            "Sequence"
+          ]
+        },
+        {
+          "source": "pytest",
+          "specifiers": [
+            "pytest"
+          ]
+        },
+        {
+          "source": "config",
+          "specifiers": [
+            "MusicSource",
+            "SearchResult"
+          ]
+        },
+        {
+          "source": "search.aggregator",
+          "specifiers": [
+            "aggregate_results",
+            "search_all"
+          ]
+        }
+      ],
+      "exports": [
+        "_StubSearcher",
+        "_RaisingSearcher",
+        "_r",
+        "test_search_all_combines_results_from_all_sources",
+        "test_search_all_swallows_searcher_exceptions",
+        "test_aggregate_dedupes_similar_titles_keeping_higher_score",
+        "test_aggregate_orders_results_with_download_first",
+        "test_aggregate_total_capped_at_20",
+        "test_aggregate_empty_input_returns_empty"
+      ],
+      "totalLines": 84,
+      "hasStructuralAnalysis": true
+    },
+    "backend/tests/test_search_base.py": {
+      "filePath": "backend/tests/test_search_base.py",
+      "contentHash": "c9d6d1489a4bba9ac47cfbd961b0ca0ac860d5e8cf637e2dc490e09acefac29c",
+      "functions": [
+        {
+          "name": "test_search_swallows_exceptions_returns_empty",
+          "params": [],
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "test_search_returns_results_on_success",
+          "params": [],
+          "exported": true,
+          "lineCount": 5
+        }
+      ],
+      "classes": [
+        {
+          "name": "_FailingSearcher",
+          "methods": [
+            "_do_search",
+            "get_download_url"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "_OkSearcher",
+          "methods": [
+            "_do_search",
+            "get_download_url"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 16
+        }
+      ],
+      "imports": [
+        {
+          "source": "pytest",
+          "specifiers": [
+            "pytest"
+          ]
+        },
+        {
+          "source": "config",
+          "specifiers": [
+            "MusicSource",
+            "SearchResult"
+          ]
+        },
+        {
+          "source": "search.base",
+          "specifiers": [
+            "BaseMusicSearcher"
+          ]
+        }
+      ],
+      "exports": [
+        "_FailingSearcher",
+        "_OkSearcher",
+        "test_search_swallows_exceptions_returns_empty",
+        "test_search_returns_results_on_success"
+      ],
+      "totalLines": 48,
+      "hasStructuralAnalysis": true
+    },
+    "backend/tests/test_searchers_html.py": {
+      "filePath": "backend/tests/test_searchers_html.py",
+      "contentHash": "52f9ebbee659119b198a7d91f4b3523cd5a826351d56b5b0b1730fd9c9e4e7d2",
+      "functions": [
+        {
+          "name": "_client_returning",
+          "params": [
+            "html",
+            "status"
+          ],
+          "returnType": "httpx.AsyncClient",
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "test_freemidi_parses_search_results",
+          "params": [],
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "test_freemidi_uses_query_param",
+          "params": [],
+          "exported": true,
+          "lineCount": 12
+        },
+        {
+          "name": "test_freemidi_returns_empty_on_5xx",
+          "params": [],
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "test_freemidi_respects_limit",
+          "params": [],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "test_freemidi_dedupes_repeat_links",
+          "params": [],
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "test_bitmidi_parses_json_api",
+          "params": [],
+          "exported": true,
+          "lineCount": 17
+        },
+        {
+          "name": "test_bitmidi_returns_empty_on_invalid_json",
+          "params": [],
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "test_musescore_parses_jsonld",
+          "params": [],
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "test_musescore_swallows_403",
+          "params": [],
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "test_bilibili_extracts_download_link_from_description",
+          "params": [],
+          "exported": true,
+          "lineCount": 16
+        },
+        {
+          "name": "test_bilibili_strips_em_tags_from_title",
+          "params": [],
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "test_bilibili_returns_empty_on_520_rate_limit",
+          "params": [],
+          "exported": true,
+          "lineCount": 9
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "httpx",
+          "specifiers": [
+            "httpx"
+          ]
+        },
+        {
+          "source": "pytest",
+          "specifiers": [
+            "pytest"
+          ]
+        },
+        {
+          "source": "config",
+          "specifiers": [
+            "MusicSource"
+          ]
+        },
+        {
+          "source": "search.freemidi",
+          "specifiers": [
+            "FreeMidiSearcher"
+          ]
+        },
+        {
+          "source": "search.bitmidi",
+          "specifiers": [
+            "BitMidiSearcher"
+          ]
+        },
+        {
+          "source": "search.musescore",
+          "specifiers": [
+            "MuseScoreSearcher"
+          ]
+        },
+        {
+          "source": "search.bilibili",
+          "specifiers": [
+            "BilibiliSearcher"
+          ]
+        }
+      ],
+      "exports": [
+        "_client_returning",
+        "test_freemidi_parses_search_results",
+        "test_freemidi_uses_query_param",
+        "test_freemidi_returns_empty_on_5xx",
+        "test_freemidi_respects_limit",
+        "test_freemidi_dedupes_repeat_links",
+        "test_bitmidi_parses_json_api",
+        "test_bitmidi_returns_empty_on_invalid_json",
+        "test_musescore_parses_jsonld",
+        "test_musescore_swallows_403",
+        "test_bilibili_extracts_download_link_from_description",
+        "test_bilibili_strips_em_tags_from_title",
+        "test_bilibili_returns_empty_on_520_rate_limit"
+      ],
+      "totalLines": 254,
+      "hasStructuralAnalysis": true
+    },
+    "backend/tests/test_store.py": {
+      "filePath": "backend/tests/test_store.py",
+      "contentHash": "d0d433228d956a0ab30ba45f151bfd1e8c0625b7680b59b155a291b01425020a",
+      "functions": [
+        {
+          "name": "_empty_parsed",
+          "params": [],
+          "returnType": "ParsedMidi",
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "_track_info",
+          "params": [
+            "index",
+            "role"
+          ],
+          "returnType": "TrackInfo",
+          "exported": true,
+          "lineCount": 10
+        },
+        {
+          "name": "test_save_returns_token_with_prefix",
+          "params": [],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "test_get_returns_saved_record",
+          "params": [],
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "test_get_unknown_token_raises_keyerror",
+          "params": [],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "test_distinct_tokens_per_save",
+          "params": [],
+          "exported": true,
+          "lineCount": 5
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "pytest",
+          "specifiers": [
+            "pytest"
+          ]
+        },
+        {
+          "source": "config",
+          "specifiers": [
+            "ParsedMidi",
+            "ParsedTrack",
+            "TrackInfo",
+            "TrackRole"
+          ]
+        },
+        {
+          "source": "api.store",
+          "specifiers": [
+            "ParsedFileStore"
+          ]
+        }
+      ],
+      "exports": [
+        "_empty_parsed",
+        "_track_info",
+        "test_save_returns_token_with_prefix",
+        "test_get_returns_saved_record",
+        "test_get_unknown_token_raises_keyerror",
+        "test_distinct_tokens_per_save"
+      ],
+      "totalLines": 54,
+      "hasStructuralAnalysis": true
+    },
+    "backend/tests/test_timing.py": {
+      "filePath": "backend/tests/test_timing.py",
+      "contentHash": "74179e739fd9544c32d92d9dc0791ee2535106ebeff2b572d56130113d953db0",
+      "functions": [
+        {
+          "name": "test_tick_to_ms_basic",
+          "params": [],
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "test_tick_to_ms_zero_tick_is_zero_ms",
+          "params": [],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "test_tick_to_ms_proportional",
+          "params": [],
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "test_tick_to_ms_handles_different_resolution",
+          "params": [],
+          "exported": true,
+          "lineCount": 3
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "parser.timing",
+          "specifiers": [
+            "tick_to_ms"
+          ]
+        }
+      ],
+      "exports": [
+        "test_tick_to_ms_basic",
+        "test_tick_to_ms_zero_tick_is_zero_ms",
+        "test_tick_to_ms_proportional",
+        "test_tick_to_ms_handles_different_resolution"
+      ],
+      "totalLines": 24,
+      "hasStructuralAnalysis": true
+    },
+    "backend/tests/test_track_classifier.py": {
+      "filePath": "backend/tests/test_track_classifier.py",
+      "contentHash": "72992091d23db8a860b225e525affd87377236ad6780212af9ac41ae84b63098",
+      "functions": [
+        {
+          "name": "_track",
+          "params": [
+            "index",
+            "name",
+            "notes"
+          ],
+          "returnType": "ParsedTrack",
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "_note",
+          "params": [
+            "midi",
+            "start",
+            "duration",
+            "velocity",
+            "track_index"
+          ],
+          "returnType": "ParsedNote",
+          "exported": true,
+          "lineCount": 10
+        }
+      ],
+      "classes": [
+        {
+          "name": "TestNamedTrackPriority",
+          "methods": [
+            "test_track_named_melody_recommended_as_melody",
+            "test_track_named_bass_recommended_as_bass",
+            "test_track_named_drums_ignored"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 33
+        },
+        {
+          "name": "TestPitchRangeRule",
+          "methods": [
+            "test_all_notes_below_c3_classified_as_bass",
+            "test_too_few_notes_ignored"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 22
+        },
+        {
+          "name": "TestComprehensiveScoring",
+          "methods": [
+            "test_first_track_in_fixture_is_melody"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 20
+        },
+        {
+          "name": "TestChordTypeDetection",
+          "methods": [
+            "test_simultaneous_chords_marked_chordal",
+            "test_evenly_spaced_singletons_marked_arpeggiated",
+            "test_melody_chord_type_is_none"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 39
+        },
+        {
+          "name": "TestTrackInfoFields",
+          "methods": [
+            "test_pitch_range_format",
+            "test_preview_keys_first_eight_pc"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 17
+        }
+      ],
+      "imports": [
+        {
+          "source": "pathlib",
+          "specifiers": [
+            "Path"
+          ]
+        },
+        {
+          "source": "pytest",
+          "specifiers": [
+            "pytest"
+          ]
+        },
+        {
+          "source": "config",
+          "specifiers": [
+            "ParsedMidi",
+            "ParsedNote",
+            "ParsedTrack",
+            "TrackRole"
+          ]
+        },
+        {
+          "source": "parser.midi_parser",
+          "specifiers": [
+            "parse_midi_file"
+          ]
+        },
+        {
+          "source": "parser.track_classifier",
+          "specifiers": [
+            "classify_tracks"
+          ]
+        }
+      ],
+      "exports": [
+        "_track",
+        "_note",
+        "TestNamedTrackPriority",
+        "TestPitchRangeRule",
+        "TestComprehensiveScoring",
+        "TestChordTypeDetection",
+        "TestTrackInfoFields"
+      ],
+      "totalLines": 170,
+      "hasStructuralAnalysis": true
+    },
+    "backend/utils/__init__.py": {
+      "filePath": "backend/utils/__init__.py",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": true
+    },
+    "backend/utils/cache.py": {
+      "filePath": "backend/utils/cache.py",
+      "contentHash": "396ba7c45a83f348fe637ed7e31d51016bb467d1be7f44b9eabeca7ed5fb3877",
+      "functions": [
+        {
+          "name": "_hash_url",
+          "params": [
+            "url"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "cache_path_for_url",
+          "params": [
+            "url",
+            "base"
+          ],
+          "returnType": "Path",
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "is_cached",
+          "params": [
+            "url",
+            "base"
+          ],
+          "returnType": "bool",
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "ensure_cache_dir",
+          "params": [
+            "base"
+          ],
+          "returnType": "None",
+          "exported": true,
+          "lineCount": 2
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "hashlib",
+          "specifiers": [
+            "hashlib"
+          ]
+        },
+        {
+          "source": "pathlib",
+          "specifiers": [
+            "Path"
+          ]
+        }
+      ],
+      "exports": [
+        "_hash_url",
+        "cache_path_for_url",
+        "is_cached",
+        "ensure_cache_dir"
+      ],
+      "totalLines": 28,
+      "hasStructuralAnalysis": true
+    },
+    "backend/utils/downloader.py": {
+      "filePath": "backend/utils/downloader.py",
+      "contentHash": "4024b8daaa3f23c4103275f0c7adfb5a85341c811d639c5f6780afd57335f527",
+      "functions": [
+        {
+          "name": "download_to_path",
+          "params": [
+            "url",
+            "target",
+            "client",
+            "timeout"
+          ],
+          "returnType": "Path",
+          "exported": true,
+          "lineCount": 42
+        }
+      ],
+      "classes": [
+        {
+          "name": "DownloadError",
+          "methods": [],
+          "properties": [],
+          "exported": true,
+          "lineCount": 2
+        }
+      ],
+      "imports": [
+        {
+          "source": "pathlib",
+          "specifiers": [
+            "Path"
+          ]
+        },
+        {
+          "source": "httpx",
+          "specifiers": [
+            "httpx"
+          ]
+        }
+      ],
+      "exports": [
+        "DownloadError",
+        "download_to_path"
+      ],
+      "totalLines": 62,
+      "hasStructuralAnalysis": true
+    },
+    "docs/superpowers/plans/2026-05-22-audio-to-midi-part1-backend.md": {
+      "filePath": "docs/superpowers/plans/2026-05-22-audio-to-midi-part1-backend.md",
+      "contentHash": "dedb01c18b0913814ae0409788c3e11ef5568947f36c5832b4c2f12f272e1a76",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1760,
+      "hasStructuralAnalysis": true
+    },
+    "docs/superpowers/plans/2026-05-22-audio-to-midi-part2-routes.md": {
+      "filePath": "docs/superpowers/plans/2026-05-22-audio-to-midi-part2-routes.md",
+      "contentHash": "9599b8eea02e8a15ac48015d701e4e49202f5ed9d9276ae14002d71c86b1175c",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1213,
+      "hasStructuralAnalysis": true
+    },
+    "docs/superpowers/plans/2026-05-22-audio-to-midi-part3-frontend.md": {
+      "filePath": "docs/superpowers/plans/2026-05-22-audio-to-midi-part3-frontend.md",
+      "contentHash": "f7b3bda06d6ac5ab0e69a8feb2451b07ca811f6ddbc99bf941abe889425de2ce",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1111,
+      "hasStructuralAnalysis": true
+    },
+    "docs/superpowers/plans/2026-05-22-genshin-lyre-part1-foundation.md": {
+      "filePath": "docs/superpowers/plans/2026-05-22-genshin-lyre-part1-foundation.md",
+      "contentHash": "38b37ed71bfa5cb03031f75f8004d2fa7ecc93c279e25ca9c060f87caf234ca2",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1420,
+      "hasStructuralAnalysis": true
+    },
+    "docs/superpowers/plans/2026-05-22-genshin-lyre-part2-pipeline.md": {
+      "filePath": "docs/superpowers/plans/2026-05-22-genshin-lyre-part2-pipeline.md",
+      "contentHash": "19ece4fca079ac186ea697fe9b0d77bf891ff390164ac4e3fa4466c839223984",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 2150,
+      "hasStructuralAnalysis": true
+    },
+    "docs/superpowers/plans/2026-05-22-genshin-lyre-part3-frontend-and-api.md": {
+      "filePath": "docs/superpowers/plans/2026-05-22-genshin-lyre-part3-frontend-and-api.md",
+      "contentHash": "9e58b47f94923a88f2232e0fc3ff7fc7e951ccd220b226d3893cf5d0bd9de6ff",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 2474,
+      "hasStructuralAnalysis": true
+    },
+    "docs/superpowers/specs/2026-05-22-audio-to-midi-design.md": {
+      "filePath": "docs/superpowers/specs/2026-05-22-audio-to-midi-design.md",
+      "contentHash": "ceb21f6d17d5c3e509b29e23f77e9459ce05c327ca92858e076e9aa4c6e17087",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 431,
+      "hasStructuralAnalysis": true
+    },
+    "docs/superpowers/specs/2026-05-22-track-preview-design.md": {
+      "filePath": "docs/superpowers/specs/2026-05-22-track-preview-design.md",
+      "contentHash": "83b4025e066438e0a2f5ce18cf4c8d66d0fd1c97c2e923ae66b97c8c25ab4edc",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 271,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/.env.example": {
+      "filePath": "frontend/.env.example",
+      "contentHash": "eaa8503379c11ade6ef8d7b77ef64e8d9772ce183cc7704ebc42a58b2f358693",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 2,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/index.html": {
+      "filePath": "frontend/index.html",
+      "contentHash": "644ce11ff28575939932b3a1db48d0bb918fff11c91931e7af8b11ddb50d33ee",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 13,
+      "hasStructuralAnalysis": false
+    },
+    "frontend/package.json": {
+      "filePath": "frontend/package.json",
+      "contentHash": "0c379030ee9a62effd23625df52b2ee8c93eb2db8d3b189eec329de8cb48f27f",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 26,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/postcss.config.js": {
+      "filePath": "frontend/postcss.config.js",
+      "contentHash": "e32657baf631d7c5f4dc67b4b2ee0ec8e7d5b3c41860e09cddce7c0377cd80bc",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 7,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/api/client.js": {
+      "filePath": "frontend/src/api/client.js",
+      "contentHash": "d02aa5b03631ce4204acbee0d1191b95a43b8e9655d6cc5f906ec991152efdcd",
+      "functions": [
+        {
+          "name": "searchMusic",
+          "params": [
+            "query"
+          ],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "parseResource",
+          "params": [],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "uploadMidi",
+          "params": [
+            "file"
+          ],
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "generateScore",
+          "params": [],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "getPreviewTrack",
+          "params": [
+            "fileToken",
+            "trackIndex",
+            "mapped"
+          ],
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "searchAudio",
+          "params": [
+            "query",
+            "platform"
+          ],
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "transcribeAudioUrl",
+          "params": [],
+          "exported": true,
+          "lineCount": 10
+        },
+        {
+          "name": "transcribeAudioCandidate",
+          "params": [],
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "transcribeAudioUpload",
+          "params": [
+            "file"
+          ],
+          "exported": true,
+          "lineCount": 10
+        },
+        {
+          "name": "getAudioJob",
+          "params": [
+            "jobToken"
+          ],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "getParseRecord",
+          "params": [
+            "parseToken"
+          ],
+          "exported": true,
+          "lineCount": 4
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "axios",
+          "specifiers": [
+            "axios"
+          ]
+        }
+      ],
+      "exports": [
+        "searchMusic",
+        "parseResource",
+        "uploadMidi",
+        "generateScore",
+        "getPreviewTrack",
+        "searchAudio",
+        "transcribeAudioUrl",
+        "transcribeAudioCandidate",
+        "transcribeAudioUpload",
+        "getAudioJob",
+        "getParseRecord"
+      ],
+      "totalLines": 102,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/App.jsx": {
+      "filePath": "frontend/src/App.jsx",
+      "contentHash": "afdadac12e67a5a15d20734f2b92934418a58f101d3876720a1d82f34e302d3c",
+      "functions": [
+        {
+          "name": "App",
+          "params": [],
+          "exported": true,
+          "lineCount": 12
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react-router-dom",
+          "specifiers": [
+            "Route",
+            "Routes"
+          ]
+        },
+        {
+          "source": "./pages/SearchPage.jsx",
+          "specifiers": [
+            "SearchPage"
+          ]
+        },
+        {
+          "source": "./pages/ResultsPage.jsx",
+          "specifiers": [
+            "ResultsPage"
+          ]
+        },
+        {
+          "source": "./pages/TrackConfigPage.jsx",
+          "specifiers": [
+            "TrackConfigPage"
+          ]
+        },
+        {
+          "source": "./pages/ScorePage.jsx",
+          "specifiers": [
+            "ScorePage"
+          ]
+        }
+      ],
+      "exports": [
+        "App"
+      ],
+      "totalLines": 19,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/audio/piano.js": {
+      "filePath": "frontend/src/audio/piano.js",
+      "contentHash": "48f50e8878a674cf549b8f35df0a4e615450c2a25d2c5e0eebce759ef022002c",
+      "functions": [
+        {
+          "name": "ensureTone",
+          "params": [],
+          "exported": false,
+          "lineCount": 5
+        },
+        {
+          "name": "ensureInstrument",
+          "params": [],
+          "exported": false,
+          "lineCount": 29
+        },
+        {
+          "name": "isUsingSynthFallback",
+          "params": [],
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "clearActive",
+          "params": [],
+          "exported": false,
+          "lineCount": 13
+        },
+        {
+          "name": "play",
+          "params": [
+            "notes"
+          ],
+          "exported": true,
+          "lineCount": 56
+        },
+        {
+          "name": "pause",
+          "params": [],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "resume",
+          "params": [],
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "stop",
+          "params": [],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "seek",
+          "params": [
+            "ms"
+          ],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "setLoop",
+          "params": [
+            "loop"
+          ],
+          "exported": true,
+          "lineCount": 3
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [
+        "isUsingSynthFallback",
+        "play",
+        "pause",
+        "resume",
+        "stop",
+        "seek",
+        "setLoop"
+      ],
+      "totalLines": 166,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/AudioAdvancedSettings.jsx": {
+      "filePath": "frontend/src/components/AudioAdvancedSettings.jsx",
+      "contentHash": "0d83c7b1ade40adf17fe34122c1942bca304f8ba0dcba38fc9339c310a6b3fca",
+      "functions": [
+        {
+          "name": "AudioAdvancedSettings",
+          "params": [],
+          "exported": true,
+          "lineCount": 48
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [
+        "AudioAdvancedSettings"
+      ],
+      "totalLines": 55,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/AudioCandidateCard.jsx": {
+      "filePath": "frontend/src/components/AudioCandidateCard.jsx",
+      "contentHash": "126b9e462fbd1ab4be5db3cbee1fe3856b1093968e2a8220c8556a1a60c689eb",
+      "functions": [
+        {
+          "name": "formatDuration",
+          "params": [
+            "seconds"
+          ],
+          "exported": false,
+          "lineCount": 6
+        },
+        {
+          "name": "AudioCandidateCard",
+          "params": [],
+          "exported": true,
+          "lineCount": 33
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [
+        "AudioCandidateCard"
+      ],
+      "totalLines": 47,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/AudioModeToggle.jsx": {
+      "filePath": "frontend/src/components/AudioModeToggle.jsx",
+      "contentHash": "9ae24078d21200d617b21d462fea25d12edd62bc5fe2804cd5e400c7adc88509",
+      "functions": [
+        {
+          "name": "AudioModeToggle",
+          "params": [],
+          "exported": true,
+          "lineCount": 20
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [
+        "AudioModeToggle"
+      ],
+      "totalLines": 26,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/AudioSearchCard.jsx": {
+      "filePath": "frontend/src/components/AudioSearchCard.jsx",
+      "contentHash": "8d627d428af8fceb0d19653cbfc65f8fbf9f44c165798cbff7de7aadbc58eaa8",
+      "functions": [
+        {
+          "name": "AudioSearchCard",
+          "params": [],
+          "exported": true,
+          "lineCount": 88
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "useState"
+          ]
+        },
+        {
+          "source": "../api/client.js",
+          "specifiers": [
+            "searchAudio"
+          ]
+        },
+        {
+          "source": "./AudioCandidateCard.jsx",
+          "specifiers": [
+            "AudioCandidateCard"
+          ]
+        }
+      ],
+      "exports": [
+        "AudioSearchCard"
+      ],
+      "totalLines": 99,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/AudioSearchSection.jsx": {
+      "filePath": "frontend/src/components/AudioSearchSection.jsx",
+      "contentHash": "a5095518f0638919da0d1038add4becf462232458f03638a938947ca09fa0114",
+      "functions": [
+        {
+          "name": "AudioSearchSection",
+          "params": [],
+          "exported": true,
+          "lineCount": 102
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "useEffect",
+            "useState"
+          ]
+        },
+        {
+          "source": "react-router-dom",
+          "specifiers": [
+            "useNavigate"
+          ]
+        },
+        {
+          "source": "../api/client.js",
+          "specifiers": [
+            "getParseRecord",
+            "transcribeAudioCandidate",
+            "transcribeAudioUpload",
+            "transcribeAudioUrl"
+          ]
+        },
+        {
+          "source": "../hooks/useTranscribeJob.js",
+          "specifiers": [
+            "useTranscribeJob"
+          ]
+        },
+        {
+          "source": "./AudioAdvancedSettings.jsx",
+          "specifiers": [
+            "AudioAdvancedSettings"
+          ]
+        },
+        {
+          "source": "./AudioSearchCard.jsx",
+          "specifiers": [
+            "AudioSearchCard"
+          ]
+        },
+        {
+          "source": "./AudioUploadCard.jsx",
+          "specifiers": [
+            "AudioUploadCard"
+          ]
+        },
+        {
+          "source": "./AudioUrlCard.jsx",
+          "specifiers": [
+            "AudioUrlCard"
+          ]
+        },
+        {
+          "source": "./TranscribeProgress.jsx",
+          "specifiers": [
+            "TranscribeProgress"
+          ]
+        }
+      ],
+      "exports": [
+        "AudioSearchSection"
+      ],
+      "totalLines": 118,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/AudioUploadCard.jsx": {
+      "filePath": "frontend/src/components/AudioUploadCard.jsx",
+      "contentHash": "ff12444fb580497b00de01fba2844a408a2e7e678422ae6a61e7268449c77eb4",
+      "functions": [
+        {
+          "name": "AudioUploadCard",
+          "params": [],
+          "exported": true,
+          "lineCount": 36
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "useState"
+          ]
+        }
+      ],
+      "exports": [
+        "AudioUploadCard"
+      ],
+      "totalLines": 39,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/AudioUrlCard.jsx": {
+      "filePath": "frontend/src/components/AudioUrlCard.jsx",
+      "contentHash": "c6ba66b5041c7031101c554dcdc04dc38076fea171459dddba3b7a929eab1f61",
+      "functions": [
+        {
+          "name": "AudioUrlCard",
+          "params": [],
+          "exported": true,
+          "lineCount": 36
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "useState"
+          ]
+        }
+      ],
+      "exports": [
+        "AudioUrlCard"
+      ],
+      "totalLines": 39,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/LoadingSpinner.jsx": {
+      "filePath": "frontend/src/components/LoadingSpinner.jsx",
+      "contentHash": "560ca2122b4bb0c198929aa2bd702b94debe2b67c9b15029db69e557a2e54547",
+      "functions": [
+        {
+          "name": "LoadingSpinner",
+          "params": [],
+          "exported": true,
+          "lineCount": 8
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [
+        "LoadingSpinner"
+      ],
+      "totalLines": 9,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/ResourceCard.jsx": {
+      "filePath": "frontend/src/components/ResourceCard.jsx",
+      "contentHash": "ed54922cc51fc4a3a3adf5b7e00e921f63594f1f8f26915fa3fdc2cd33579ed8",
+      "functions": [
+        {
+          "name": "truncate",
+          "params": [
+            "text"
+          ],
+          "exported": false,
+          "lineCount": 3
+        },
+        {
+          "name": "ResourceCard",
+          "params": [],
+          "exported": true,
+          "lineCount": 44
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [
+        "ResourceCard"
+      ],
+      "totalLines": 56,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/ScoreDisplay.jsx": {
+      "filePath": "frontend/src/components/ScoreDisplay.jsx",
+      "contentHash": "a0a8e140c22ecf3706b3d42b226660230fd5c33dae6822a4c9f6920ab9aebf6a",
+      "functions": [
+        {
+          "name": "highlightOutOfRange",
+          "params": [
+            "line"
+          ],
+          "exported": false,
+          "lineCount": 26
+        },
+        {
+          "name": "ScoreDisplay",
+          "params": [],
+          "exported": true,
+          "lineCount": 34
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [
+        "ScoreDisplay"
+      ],
+      "totalLines": 62,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/SearchBar.jsx": {
+      "filePath": "frontend/src/components/SearchBar.jsx",
+      "contentHash": "6bf0d5b9c86d6f8333d438380e51a97cceb2eb696c72c1542f02d1891b6e6bb7",
+      "functions": [
+        {
+          "name": "SearchBar",
+          "params": [],
+          "exported": true,
+          "lineCount": 28
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "useState"
+          ]
+        }
+      ],
+      "exports": [
+        "SearchBar"
+      ],
+      "totalLines": 31,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/TrackPanel.jsx": {
+      "filePath": "frontend/src/components/TrackPanel.jsx",
+      "contentHash": "4a3887b98c23dad8beb5dcc793276cfff789217ac16cc1356dd0b2565c6bbf81",
+      "functions": [
+        {
+          "name": "TrackPanel",
+          "params": [],
+          "exported": true,
+          "lineCount": 91
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "useState"
+          ]
+        },
+        {
+          "source": "./TrackTransport.jsx",
+          "specifiers": [
+            "TrackTransport"
+          ]
+        }
+      ],
+      "exports": [
+        "TrackPanel"
+      ],
+      "totalLines": 109,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/TrackTransport.jsx": {
+      "filePath": "frontend/src/components/TrackTransport.jsx",
+      "contentHash": "c7935e8ec54835e0b830fef5a530e4ad69bea9a36fbecda040aef2b7cf1e2038",
+      "functions": [
+        {
+          "name": "formatTime",
+          "params": [
+            "ms"
+          ],
+          "exported": false,
+          "lineCount": 6
+        },
+        {
+          "name": "TrackTransport",
+          "params": [],
+          "exported": true,
+          "lineCount": 109
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "useEffect",
+            "useRef"
+          ]
+        },
+        {
+          "source": "../hooks/useTrackPreview.js",
+          "specifiers": [
+            "useTrackPreview"
+          ]
+        }
+      ],
+      "exports": [
+        "TrackTransport"
+      ],
+      "totalLines": 120,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/TranscribeProgress.jsx": {
+      "filePath": "frontend/src/components/TranscribeProgress.jsx",
+      "contentHash": "ea59776064ca1b350d925dc54a438a57181624ef9ffeff9af0d31e89ac0aa720",
+      "functions": [
+        {
+          "name": "TranscribeProgress",
+          "params": [],
+          "exported": true,
+          "lineCount": 32
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [
+        "TranscribeProgress"
+      ],
+      "totalLines": 42,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/VersionTabs.jsx": {
+      "filePath": "frontend/src/components/VersionTabs.jsx",
+      "contentHash": "cfe1bc29b3d22c45b79c51c7b1d2e69b700b3f9543cce15035d0375334823655",
+      "functions": [
+        {
+          "name": "VersionTabs",
+          "params": [],
+          "exported": true,
+          "lineCount": 19
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [
+        "VersionTabs"
+      ],
+      "totalLines": 20,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/hooks/useTrackPreview.js": {
+      "filePath": "frontend/src/hooks/useTrackPreview.js",
+      "contentHash": "31ddfe93fb276080090b4969486b40537e8668e9b8dbdec93c2c8bdf99581591",
+      "functions": [
+        {
+          "name": "cacheKey",
+          "params": [
+            "fileToken",
+            "trackIndex",
+            "mapped"
+          ],
+          "exported": false,
+          "lineCount": 3
+        },
+        {
+          "name": "useTrackPreview",
+          "params": [],
+          "exported": true,
+          "lineCount": 125
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "useCallback",
+            "useEffect",
+            "useRef",
+            "useState"
+          ]
+        },
+        {
+          "source": "../api/client.js",
+          "specifiers": [
+            "getPreviewTrack"
+          ]
+        },
+        {
+          "source": "../audio/piano.js",
+          "specifiers": [
+            "* as piano"
+          ]
+        }
+      ],
+      "exports": [
+        "useTrackPreview"
+      ],
+      "totalLines": 138,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/hooks/useTranscribeJob.js": {
+      "filePath": "frontend/src/hooks/useTranscribeJob.js",
+      "contentHash": "ff45f35378fee0d6919b7d00f7d10d85e81ce3d4ba2b02b1fc957ee9e9795006",
+      "functions": [
+        {
+          "name": "useTranscribeJob",
+          "params": [
+            "jobToken"
+          ],
+          "exported": true,
+          "lineCount": 60
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "useEffect",
+            "useRef",
+            "useState"
+          ]
+        },
+        {
+          "source": "../api/client.js",
+          "specifiers": [
+            "getAudioJob"
+          ]
+        }
+      ],
+      "exports": [
+        "useTranscribeJob"
+      ],
+      "totalLines": 72,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/main.jsx": {
+      "filePath": "frontend/src/main.jsx",
+      "contentHash": "84ad9d6596d349b8a82910bf83e4f57cc390c38d114c0329c4b6b1e8f5bb4997",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "React"
+          ]
+        },
+        {
+          "source": "react-dom/client",
+          "specifiers": [
+            "ReactDOM"
+          ]
+        },
+        {
+          "source": "react-router-dom",
+          "specifiers": [
+            "BrowserRouter"
+          ]
+        },
+        {
+          "source": "./App.jsx",
+          "specifiers": [
+            "App"
+          ]
+        },
+        {
+          "source": "./styles/global.css",
+          "specifiers": []
+        }
+      ],
+      "exports": [],
+      "totalLines": 14,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/pages/ResultsPage.jsx": {
+      "filePath": "frontend/src/pages/ResultsPage.jsx",
+      "contentHash": "d4dab3cd5f075b4cdb44b7aa28dc134a89352f2a0ea452e2a0768d7085260386",
+      "functions": [
+        {
+          "name": "ResultsPage",
+          "params": [],
+          "exported": true,
+          "lineCount": 111
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "useEffect",
+            "useMemo",
+            "useState"
+          ]
+        },
+        {
+          "source": "react-router-dom",
+          "specifiers": [
+            "useLocation",
+            "useNavigate"
+          ]
+        },
+        {
+          "source": "../api/client.js",
+          "specifiers": [
+            "parseResource",
+            "uploadMidi"
+          ]
+        },
+        {
+          "source": "../components/ResourceCard.jsx",
+          "specifiers": [
+            "ResourceCard"
+          ]
+        },
+        {
+          "source": "../components/LoadingSpinner.jsx",
+          "specifiers": [
+            "LoadingSpinner"
+          ]
+        }
+      ],
+      "exports": [
+        "ResultsPage"
+      ],
+      "totalLines": 126,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/pages/ScorePage.jsx": {
+      "filePath": "frontend/src/pages/ScorePage.jsx",
+      "contentHash": "09aecf564461039cef7f9c7085e7a0bb67207cb4e0b8c1ffadb7b8a60aecb636",
+      "functions": [
+        {
+          "name": "ScorePage",
+          "params": [],
+          "exported": true,
+          "lineCount": 137
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "useEffect",
+            "useMemo",
+            "useState"
+          ]
+        },
+        {
+          "source": "react-router-dom",
+          "specifiers": [
+            "useLocation",
+            "useNavigate"
+          ]
+        },
+        {
+          "source": "../components/VersionTabs.jsx",
+          "specifiers": [
+            "VersionTabs"
+          ]
+        },
+        {
+          "source": "../components/ScoreDisplay.jsx",
+          "specifiers": [
+            "ScoreDisplay"
+          ]
+        }
+      ],
+      "exports": [
+        "ScorePage"
+      ],
+      "totalLines": 149,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/pages/SearchPage.jsx": {
+      "filePath": "frontend/src/pages/SearchPage.jsx",
+      "contentHash": "3e676d89148da6613c0687dd94fb0870030e3e08504d6cc19f857d0832fe8bbf",
+      "functions": [
+        {
+          "name": "readHistory",
+          "params": [],
+          "exported": false,
+          "lineCount": 7
+        },
+        {
+          "name": "pushHistory",
+          "params": [
+            "query"
+          ],
+          "exported": false,
+          "lineCount": 5
+        },
+        {
+          "name": "SearchPage",
+          "params": [],
+          "exported": true,
+          "lineCount": 66
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "useState"
+          ]
+        },
+        {
+          "source": "react-router-dom",
+          "specifiers": [
+            "useNavigate"
+          ]
+        },
+        {
+          "source": "../api/client.js",
+          "specifiers": [
+            "searchMusic"
+          ]
+        },
+        {
+          "source": "../components/SearchBar.jsx",
+          "specifiers": [
+            "SearchBar"
+          ]
+        },
+        {
+          "source": "../components/LoadingSpinner.jsx",
+          "specifiers": [
+            "LoadingSpinner"
+          ]
+        },
+        {
+          "source": "../components/AudioModeToggle.jsx",
+          "specifiers": [
+            "AudioModeToggle"
+          ]
+        },
+        {
+          "source": "../components/AudioSearchSection.jsx",
+          "specifiers": [
+            "AudioSearchSection"
+          ]
+        }
+      ],
+      "exports": [
+        "SearchPage"
+      ],
+      "totalLines": 91,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/pages/TrackConfigPage.jsx": {
+      "filePath": "frontend/src/pages/TrackConfigPage.jsx",
+      "contentHash": "505a1db3aada726d957a75a34bc4eb4c2e92070132e734faf87350f1c8a816f1",
+      "functions": [
+        {
+          "name": "TrackConfigPage",
+          "params": [],
+          "exported": true,
+          "lineCount": 88
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "useEffect",
+            "useState"
+          ]
+        },
+        {
+          "source": "react-router-dom",
+          "specifiers": [
+            "useLocation",
+            "useNavigate"
+          ]
+        },
+        {
+          "source": "../api/client.js",
+          "specifiers": [
+            "generateScore"
+          ]
+        },
+        {
+          "source": "../components/TrackPanel.jsx",
+          "specifiers": [
+            "TrackPanel"
+          ]
+        },
+        {
+          "source": "../components/LoadingSpinner.jsx",
+          "specifiers": [
+            "LoadingSpinner"
+          ]
+        }
+      ],
+      "exports": [
+        "TrackConfigPage"
+      ],
+      "totalLines": 95,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/styles/global.css": {
+      "filePath": "frontend/src/styles/global.css",
+      "contentHash": "9b792d0504f5f28cdb01b6b9c3ec01784af9ec5bbbefeb503dbd11f1846637e3",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 14,
+      "hasStructuralAnalysis": false
+    },
+    "frontend/tailwind.config.js": {
+      "filePath": "frontend/tailwind.config.js",
+      "contentHash": "76d5f1ebe14ba3fddbd56b787bd926f5897aa91da520f7055ea060eb781eec2c",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 7,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/vite.config.js": {
+      "filePath": "frontend/vite.config.js",
+      "contentHash": "188ec08af36e7572768ba1f228cb1b909ebfe21a8cab23cd0ca62870703ba366",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "vite",
+          "specifiers": [
+            "defineConfig"
+          ]
+        },
+        {
+          "source": "@vitejs/plugin-react",
+          "specifiers": [
+            "react"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 8,
+      "hasStructuralAnalysis": true
+    },
+    "README.en.md": {
+      "filePath": "README.en.md",
+      "contentHash": "ef9981ebc7d18119a7c8cd480a924f702fa219a8f629b0001f3b9ad378688156",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 100,
+      "hasStructuralAnalysis": true
+    },
+    "README.md": {
+      "filePath": "README.md",
+      "contentHash": "83b261df4530e59cf0b1b8c3e4bb25c03f3041279c3dd6fadb583fd251ae0246",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 101,
+      "hasStructuralAnalysis": true
+    },
+    "requirements/genshin-lyre-requirements.md": {
+      "filePath": "requirements/genshin-lyre-requirements.md",
+      "contentHash": "8a9cdb3c55f9a90698e9e3bc0a390b06012c842049e7a0c159277f762b2d5161",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 977,
+      "hasStructuralAnalysis": true
+    }
+  }
+}
